@@ -1,0 +1,101 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Mobile.master.cs" Inherits="lewHRISlocal.Site_Mobile" %>
+<%@ Register Src="~/ViewSwitcher.ascx" TagPrefix="friendlyUrls" TagName="ViewSwitcher" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <title></title>
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+    <style>
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .mobile-container {
+          max-width: 480px;
+          margin: auto;
+          background-color: #555;
+          height: 500px;
+          color: white;
+          border-radius: 10px;
+        }
+
+        .topnav {
+          overflow: hidden;
+          background-color: #003366;
+          position: relative;
+        }
+
+        .topnav #myLinks {
+          display: none;
+        }
+
+        .topnav a {
+          color: white;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+          display: block;
+        }
+
+        .topnav a.icon {
+          background: black;
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+
+        .active {
+          background-color: #04AA6D;
+          color: white;
+        }
+    </style>
+</head>
+<body>
+    <form runat="server">
+        <!-- Top Navigation Menu -->
+        <div class="topnav">
+          <a href="Default.aspx"><strong>LEW HRIS</strong></a>
+          <!-- Navigation links (hidden by default) -->
+          <div id="myLinks">
+            <%--<a href="#news">Home</a>--%>
+            <a href="Contact.aspx">Contact</a>
+            <asp:LinkButton ID="btnSignOut" runat="server" onclick="btnSignOut_Click"><asp:TextBox ID="TextBox1" runat="server" BackColor="#003366" BorderStyle="None" ForeColor="White" Font-Italic="True" ReadOnly="true" Enabled="false" Width="100px"></asp:TextBox> (Sign Out)</asp:LinkButton>
+          </div>
+          <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+
+        <%--<form id="form1" runat="server">--%>
+        <div>
+            <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+            <section class="content-wrapper main-content clear-fix">
+                <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+            </section>
+            <friendlyUrls:ViewSwitcher runat="server" />
+        </div>
+        <%--</form>--%>
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myLinks");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                } else {
+                    x.style.display = "block";
+                }
+            }
+        </script>
+    </form>
+</body>
+</html>

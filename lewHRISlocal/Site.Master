@@ -1,0 +1,265 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="lewHRISlocal.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Lemoore West </title>
+    
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link rel="stylesheet" href="/Content/w3.css">
+    <!--link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" /-->
+    <style>
+        #myFoot {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding-top: 15px;
+            box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2), 0 -6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        #specialbtn {
+        top: 0px;
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        }
+
+        /* Change the color of links on hover */
+        #specialbtn:hover {
+            background-color: #ff9933;
+            color: black;
+        }
+
+        #specialbtn:focus {
+            background-color: #ff6600;
+            color: black;
+        }
+
+        /* Add an active class to highlight the current page */
+        #specialbtn.active {
+            background-color: #ff6600;
+            color: white;
+        }
+        /* Center the loader */
+        #loader {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          z-index: 1;
+          width: 120px;
+          height: 120px;
+          margin: -76px 0 0 -76px;
+          border: 16px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 16px solid #003366;
+          border-right: 16px solid #ff9933;
+          border-bottom: 16px solid #ff6600;
+          -webkit-animation: spin 2s linear infinite;
+          animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        /* Add animation to "page content" */
+        .animate-bottom {
+          position: relative;
+          -webkit-animation-name: animatebottom;
+          -webkit-animation-duration: 1s;
+          animation-name: animatebottom;
+          animation-duration: 1s
+        }
+
+        @-webkit-keyframes animatebottom {
+          from { bottom:-100px; opacity:0 } 
+          to { bottom:0px; opacity:1 }
+        }
+
+        @keyframes animatebottom { 
+          from{ bottom:-100px; opacity:0 } 
+          to{ bottom:0; opacity:1 }
+        }
+
+        #myDiv {
+            display: none;
+            text-align: center;
+        }
+        
+        @media print {
+          body {
+            display: none;  /* hide whole page */
+          }
+        }
+        
+        @media only screen and (min-width: 600px) {
+          /* For tablets: */
+          .col-s-1 {width: 8.33%;}
+          .col-s-2 {width: 16.66%;}
+          .col-s-3 {width: 25%;}
+          .col-s-4 {width: 33.33%;}
+          .col-s-5 {width: 41.66%;}
+          .col-s-6 {width: 50%;}
+          .col-s-7 {width: 58.33%;}
+          .col-s-8 {width: 66.66%;}
+          .col-s-9 {width: 75%;}
+          .col-s-10 {width: 83.33%;}
+          .col-s-11 {width: 91.66%;}
+          .col-s-12 {width: 100%;}
+        }
+
+        @media only screen and (min-width: 600px) {
+          /* For tablets: */
+          .col-md-1 {width: 8.33%;}
+          .col-md-2 {width: 16.66%;}
+          .col-md-3 {width: 25%;}
+          .col-md-4 {width: 33.33%;}
+          .col-md-5 {width: 41.66%;}
+          .col-md-6 {width: 50%;}
+          .col-md-7 {width: 58.33%;}
+          .col-md-8 {width: 66.66%;}
+          .col-md-9 {width: 75%;}
+          .col-md-10 {width: 83.33%;}
+          .col-md-11 {width: 91.66%;}
+          .col-md-12 {width: 100%;}
+        }
+    </style>
+    
+</head>
+
+<%--<body>--%>
+<body style="margin:0;">
+    <div id="loader"></div>
+    <form runat="server" style="margin-top: 0px; padding: 0px;">
+        
+
+    <div class="topnav" >
+        <div class="row">
+            <div class="col-md-6">
+                <a runat="server" href="~/" id="myNavHeader"><asp:Image ID="Image1" runat="server" ImageUrl="http://10.40.80.28:150/lewHRISlocal/Leprino_Foods_White.png" Height="25px" ImageAlign="TextTop" Width="35px" /> LEW Human Resources Information System</a>
+                <%--<a runat="server" href="~/">Home</a>--%>
+                <a runat="server" href="~/Contact">Contact</a>
+            </div>
+            <div class="col-md-6" >
+                <a runat="server" class="navUser" style="text-align: right; justify-content:right">Logged in as<asp:TextBox ID="TextBox1" runat="server" BackColor="#003366" BorderStyle="None" ForeColor="White" Font-Italic="True" ReadOnly="true" Enabled="false" Width="100px"></asp:TextBox></a>
+                <asp:LinkButton ID="btnSignOut" runat="server" onclick="btnSignOut_Click">(Sign Out)</asp:LinkButton>
+            </div>
+        </div>
+    </div>
+        
+        
+        
+        <div class="container body-content animate-bottom" onchange="lol()"> 
+            
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                
+            </asp:ContentPlaceHolder>
+            <%--<hr />--%>
+            <footer id="myFoot">
+                        <p>&copy; <%: DateTime.Now.Year %> - Leprino Foods Company - Lemoore West | ISS Department</p>
+                <asp:ScriptManager runat="server">
+                    <Scripts>
+                        <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                        <%--Framework Scripts--%>
+                        <asp:ScriptReference Name="MsAjaxBundle" />
+                        <asp:ScriptReference Name="jquery" />
+                        <asp:ScriptReference Name="bootstrap" />
+                        <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                        <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                        <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                        <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                        <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                        <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                        <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                        <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                        <asp:ScriptReference Name="WebFormsBundle" />
+                        <%--Site Scripts--%>
+                    </Scripts>
+                </asp:ScriptManager>
+            </footer>
+        </div>
+
+        
+    </form>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script language='javascript'>
+            //document.onreadystatechange = function () {
+            //    if (document.readyState !== "complete") {
+            //        document.getElementById(
+            //            "MainContent").style.visibility = "hidden";
+            //        setTimeout(document.getElementById(
+            //            "loader").style.visibility = "visible", 5000);
+            //    } else {
+            //        document.getElementById(
+            //            "loader").style.display = "none";
+            //        document.getElementById(
+            //            "MainContent").style.visibility = "visible";
+            //    }
+            //};
+
+            //function ShowProgress() {
+            //    setTimeout(function () {
+            //        document.onreadystatechange = function () {
+            //            if (document.readyState !== "complete") {
+            //                document.getElementById(
+            //                    "MainContent").style.visibility = "hidden";
+            //                setTimeout(document.getElementById(
+            //                    "loader").style.visibility = "visible", 5000);
+            //            } else {
+            //                document.getElementById(
+            //                    "loader").style.display = "none";
+            //                document.getElementById(
+            //                    "MainContent").style.visibility = "visible";
+            //            }
+            //        };
+            //    }, 3000);
+
+            //}
+            ////$(document).click(function () {
+            ////    ShowProgress();
+            ////});
+            //$(document).live("click", function () {
+            //    ShowProgress();
+            //});
+
+            //function lol() {
+            //    document.getElementById(
+            //        "MainContent").style.visibility = "hidden";
+            //    document.getElementById(
+            //        "loader").style.visibility = "visible";
+            //}
+            document.onreadystatechange = function () {
+                var state = document.readyState
+                if (state == 'interactive') {
+                    document.getElementById('MainContent').style.visibility = "hidden";
+                } else if (state == 'complete') {
+                    setTimeout(function () {
+                        document.getElementById('interactive');
+                        document.getElementById('loader').style.visibility = "hidden";
+                        document.getElementById('MainContent').style.visibility = "visible";
+                    }, 1000);
+                }
+            }
+        </script>
+</body>
+</html>
