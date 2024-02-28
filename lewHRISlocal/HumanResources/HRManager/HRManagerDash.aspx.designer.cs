@@ -69,6 +69,24 @@ namespace lewHRISlocal.HumanResources.HRManager
         protected global::System.Web.UI.WebControls.GridView GridView1;
 
         /// <summary>
+        /// txtPendingMeeting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPendingMeeting;
+
+        /// <summary>
+        /// GridView4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView4;
+
+        /// <summary>
         /// txtPendingCounseling control.
         /// </summary>
         /// <remarks>

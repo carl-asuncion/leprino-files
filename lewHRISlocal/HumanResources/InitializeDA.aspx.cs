@@ -15,7 +15,6 @@ using Microsoft.Identity.Client;
 using System.Security.Principal;
 using System.DirectoryServices;
 using AjaxControlToolkit;
-//using Microsoft.Data.SqlClient;
 using System.Drawing;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -27,7 +26,6 @@ using System.Threading.Tasks;
 using System.Data.Common;
 using System.DirectoryServices.AccountManagement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-//using System.Data.SqlClient;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.html;
@@ -52,8 +50,6 @@ using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace lewHRISlocal.HumanResources
 {
-    
-    
     public partial class InitializeDA : System.Web.UI.Page
     {
 
@@ -70,9 +66,6 @@ namespace lewHRISlocal.HumanResources
 
         public static string GetUserEmail(string user)           //(string domain, string userName)
         {
-            //DirectoryEntry userEntry = new DirectoryEntry("WinNT://" + domain + "/" + userName + ",User");
-            //return (string)userEntry.Properties["mail"][0];
-
             using (var connection = new DirectoryEntry())
             {
                 using (var search = new DirectorySearcher(connection)
@@ -92,307 +85,246 @@ namespace lewHRISlocal.HumanResources
             string id = Request.QueryString["id"];
 
             txtCounselingID.Text = id;
-            //timedateAck.Text = "Acknowledging on " + System.DateTime.Now.ToString();
             Context.ApplicationInstance.CompleteRequest();
 
-            
-
-            string myConnection;
-            SqlConnection cnn;
-            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
-            cnn = new SqlConnection(myConnection);
-            cnn.Open();
-            //Response.Write("Connection Made");
-
-            SqlCommand command = new SqlCommand("Select * from dbo.View_1 WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
-            SqlDataReader dataReader;
-            //String Output = " ";
-            dataReader = command.ExecuteReader();
-            while (dataReader.Read())
+            if (!IsPostBack)
             {
-                txtDateEntered.Text = dataReader.GetDateTime(2).ToString();
-                txtDateIncident.Text = dataReader.GetDateTime(3).ToString();
-                txtPosition.Text = dataReader.GetString(36);
-                txtEmpID.Text = "" + dataReader.GetInt32(1);
-                txtEEStatus.Text = dataReader.GetString(25);
-                txtEmployeeName.Text = dataReader.GetString(4);
-                txtDepartment.Text = dataReader.GetString(5);
-                txtCategory.Text = dataReader.GetString(6);
-                txtSubCategory.Text = dataReader.GetString(7);
-                if (!dataReader.IsDBNull(8))
+                string myConnection;
+                SqlConnection cnn;
+                myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
+                cnn = new SqlConnection(myConnection);
+                cnn.Open();
+                
+                SqlCommand command = new SqlCommand("Select * from dbo.View_1 WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
+                SqlDataReader dataReader;
+                dataReader = command.ExecuteReader();
+                while (dataReader.Read())
                 {
-                    txtSubject.Text = dataReader.GetString(8);
-                }
-                else txtSubject.Text = "";
-
-                if (!dataReader.IsDBNull(9))
-                {
-                    txtLevel.Text = dataReader.GetString(9);
-                }
-                else txtLevel.Text = "";
-
-                if (!dataReader.IsDBNull(10))
-                {
-                    txtSupComments.Text = dataReader.GetString(10);
-                }
-                else txtSupComments.Text = "";
-
-                if (!dataReader.IsDBNull(21))
-                {
-                    txtOverallStatus.Text = dataReader.GetString(21);
-                    //cboStatus.Text = dataReader.GetString(9);
-                }
-                else txtOverallStatus.Text = "";
-
-
-                if (!dataReader.IsDBNull(11))
-                {
-                    txtEmployeeComments.Text = dataReader.GetString(11);
-                }
-                else txtEmployeeComments.Text = "";
-
-                //if (!dataReader.IsDBNull(13))
-                //{
-                //    txtFollowUp.Text = dataReader.GetString(13);
-                //}
-                //else txtFollowUp.Text = "";
-
-                ////Bottom Data
-                //if (!dataReader.IsDBNull(26))
-                //{
-                //    txtEEAck.Text = dataReader.GetString(26);
-                //}
-                //else txtEEAck.Text = "";
-                //if (!dataReader.IsDBNull(32))
-                //{
-                //    txtEESigned.Text = dataReader.GetString(32);
-                //}
-                //else txtEESigned.Text = "";
-                //if (!dataReader.IsDBNull(27))
-                //{
-                //    txtSupFin.Text = dataReader.GetString(27);
-                //}
-                //else txtSupFin.Text = "";
-                //if (!dataReader.IsDBNull(34))
-                //{
-                //    txtSupSigned.Text = dataReader.GetString(34);
-                //}
-                //else txtSupSigned.Text = "";
-                //if (!dataReader.IsDBNull(28))
-                //{
-                //    txtHRCSigned.Text = dataReader.GetString(28);
-                //}
-                //else txtHRCSigned.Text = "";
-                //if (!dataReader.IsDBNull(30))
-                //{
-                //    txtHRMSigned.Text = dataReader.GetString(30);
-                //}
-                //else txtHRMSigned.Text = "";
-
-                //if (!dataReader.IsDBNull(12))
-                //{
-                //    txtEEAckDate.Text = dataReader.GetDateTime(12).ToString();
-                //}
-                //else txtEEAckDate.Text = "";
-                //if (!dataReader.IsDBNull(33))
-                //{
-                //    txtEEDate.Text = dataReader.GetDateTime(33).ToString();
-                //}
-                //else txtEEDate.Text = "";
-                //if (!dataReader.IsDBNull(14))
-                //{
-                //    txtSupFinDate.Text = dataReader.GetDateTime(14).ToString();
-                //}
-                //else txtSupFinDate.Text = "";
-                //if (!dataReader.IsDBNull(35))
-                //{
-                //    txtSupDate.Text = dataReader.GetDateTime(35).ToString();
-                //}
-                //else txtSupDate.Text = "";
-                //if (!dataReader.IsDBNull(29))
-                //{
-                //    txtHRCDate.Text = dataReader.GetDateTime(29).ToString();
-                //}
-                //else txtHRCDate.Text = "";
-                if (!dataReader.IsDBNull(22))
-                {
-                    txtSupervisor.Text = dataReader.GetString(22);
-                }
-                else txtSupervisor.Text = "";
-            }
-            //Response.Write(Output);
-            dataReader.Close();
-            command.Dispose();
-            cnn.Close();
-
-            //String columns = "{0, -55}{1, -35}";
-            using (var context = new PrincipalContext(ContextType.Domain, id2.GetDomain()))
-            {
-                using (var group = GroupPrincipal.FindByIdentity(context, "LEW - HRIS"))
-                {
-                    if (group == null)
+                    txtDateEntered.Text = dataReader.GetDateTime(2).ToString();
+                    txtDateIncident.Text = dataReader.GetDateTime(3).ToString();
+                    txtPosition.Text = dataReader.GetString(36);
+                    txtEmpID.Text = "" + dataReader.GetInt32(1);
+                    txtEEStatus.Text = dataReader.GetString(25);
+                    txtEmployeeName.Text = dataReader.GetString(4);
+                    txtDepartment.Text = dataReader.GetString(5);
+                    txtCategory.Text = dataReader.GetString(6);
+                    txtSubCategory.Text = dataReader.GetString(7);
+                    if (!dataReader.IsDBNull(8))
                     {
-                        //MessageBox.Show("Group does not exist");
+                        txtSubject.Text = dataReader.GetString(8);
                     }
-                    else
+                    else txtSubject.Text = "";
+
+                    if (!dataReader.IsDBNull(9))
                     {
-                        var users = group.GetMembers(true);
-                        foreach (UserPrincipal user in users)
+                        ddLevel.Text = dataReader.GetString(9);
+                        currentLevel.Text = dataReader.GetString(9);
+                    }
+                    else ddLevel.Text = "";
+
+                    if (!dataReader.IsDBNull(10))
+                    {
+                        txtSupComments.Text = dataReader.GetString(10);
+                    }
+                    else txtSupComments.Text = "";
+
+                    if (!dataReader.IsDBNull(21))
+                    {
+                        txtOverallStatus.Text = dataReader.GetString(21);
+                    }
+                    else txtOverallStatus.Text = "";
+
+
+                    if (!dataReader.IsDBNull(11))
+                    {
+                        txtEmployeeComments.Text = dataReader.GetString(11);
+                    }
+                    else txtEmployeeComments.Text = "";
+
+                    if (!dataReader.IsDBNull(22))
+                    {
+                        txtSupervisor.Text = dataReader.GetString(22);
+                    }
+                    else txtSupervisor.Text = "";
+                }
+                dataReader.Close();
+                command.Dispose();
+
+                SqlCommand command1 = new SqlCommand("Select * from dbo.View_MainDepartment " +
+                                    "WHERE [Department_Name] = '" + txtDepartment.Text + "'", cnn);
+                SqlDataReader dataReader1;
+                dataReader1 = command1.ExecuteReader();
+                while (dataReader1.Read())
+                {
+                    txtAssignedGeneralist.Text = dataReader1.GetString(2);
+                }
+                dataReader1.Close();
+                command1.Dispose();
+                cnn.Close();
+
+               
+                string query = "SELECT DISTINCT [Assigned_UserName], [Assigned_Name]  FROM [View_GeneralistGrouped] " +
+                    " WHERE NOT [Assigned_UserName] IS NULL ORDER BY [Assigned_UserName]";
+                string conString = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(conString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query))
+                    {
+                        using (SqlDataAdapter sda = new SqlDataAdapter())
                         {
-                            //ListBox1.Items.Add(String.Format(columns, user.Name.ToString(), user.EmailAddress.ToString()));
-                            ListBox1.Items.Add(user.EmailAddress.ToString());
-                            //ListBox1.Items.AddRange(new object[] { user.EmailAddress.ToString(), user.Name.ToString() });
+                            cmd.Connection = con;
+                            sda.SelectCommand = cmd;
+                            using (System.Data.DataTable dt = new System.Data.DataTable())
+                            {
+                                sda.Fill(dt);
+                                ListBox1.DataValueField = "Assigned_UserName";
+                                ListBox1.DataTextField = "Assigned_Name";
+                                ListBox1.DataSource = dt;
+                                ListBox1.DataBind();
+                            }
+                            sda.Dispose();
                         }
+                        cmd.Dispose();
                     }
-                    
+                    con.Dispose();
+                    con.Close();
                 }
             }
         }
 
-        protected void btnAck_Click(object sender, EventArgs e)
-        {
-            string myConnection;
-            SqlConnection cnn;
-            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
-            cnn = new SqlConnection(myConnection);
-
-            SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [HR_Status] = 'HR Received', [Date_HR_Received] = '" + System.DateTime.Now.ToString() + "'" +
-                " WHERE [Counseling_ID] = "
-                + txtCounselingID.Text + "", cnn);
-
-            cnn.Open();
-            command.ExecuteNonQuery();
-            MessageBox.ShowMessage("Counseling Record successfully received.", this.Page);
-            cnn.Close();
-            //MessageBox.ShowMessage(newStatus, this.Page);
-            Response.Redirect("~/HumanResources/HRDash", false);
-        }
-
-        protected void btnClose_Click(object sender, EventArgs e)
-        {
-            IIdentity id2 = HttpContext.Current.User.Identity;
-            string myConnection;
-            SqlConnection cnn;
-            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
-            cnn = new SqlConnection(myConnection);
-
-            SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [HR_Status] = 'HR Complete', [Processing_HR_Clerk] = '" + id2.GetLogin() + 
-                "', [Date_HR_Finalized] = '" + System.DateTime.Now.ToString() + "' WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
-
-            cnn.Open();
-            command.ExecuteNonQuery();
-            MessageBox.ShowMessage("Counseling Record successfully received.", this.Page);
-            cnn.Close();
-            //MessageBox.ShowMessage(newStatus, this.Page);
-            Response.Redirect("~/HumanResources/HRDash", false);
-        }
-
-        
         protected void txtSupComments_TextChanged(object sender, EventArgs e)
         {
             udpateSupComments = txtSupComments.Text;
         }
-
-
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/HumanResources/HRDash", false);
-        }
-
-        //protected void DropDownList1_TextChanged(object sender, EventArgs e)
-        //{
-        //    txtHRMEmail.Text = DropDownList1.SelectedValue;
-        //}
 
         protected void btnInitialize_Click(object sender, EventArgs e)
         {
             IIdentity id2 = HttpContext.Current.User.Identity;
             string currEmail = GetUserEmail(id2.GetLogin());
 
-            string myConnection;
-            SqlConnection cnn;
-            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
-            cnn = new SqlConnection(myConnection);
+            string newLevel = "";
+            int newCount = 0;
+            if (currentLevel.Text != ddLevel.SelectedItem.Text)
+            {
+                newLevel = ddLevel.SelectedItem.Text;
+                if (ddLevel.SelectedItem.Text == "Level 1") { newCount = 1; }
+                if (ddLevel.SelectedItem.Text == "Level 2") { newCount = 2; }
+                if (ddLevel.SelectedItem.Text == "Level 3") { newCount = 3; }
+                if (ddLevel.SelectedItem.Text == "Level 4") { newCount = 4; }
+                if (ddLevel.SelectedItem.Text == "Termination") { newCount = 5; }
+            }
+            else
+            {
+                newLevel = currentLevel.Text;
+            }
 
-            SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [HR_Status] = 'HRM Sent', [Processing_HR_Clerk] = '" + id2.GetLogin() +
-                "', [Date_HRM_Forwarded] = '" + System.DateTime.Now.ToString() +  "', [Date_HR_Finalized] = '" + System.DateTime.Now.ToString() + "' " + //[Assigned_HR_Manager] = '" + DropDownList1.SelectedItem.Text + 
-                " WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
-            SqlCommand command2 = new SqlCommand("INSERT INTO dbo.DisciplinaryRecords SELECT * FROM dbo.CounselingReport WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
-            SqlCommand command3 = new SqlCommand("UPDATE dbo.DisciplinaryRecords SET [EE_Status] = 'Unavailable', [Sup_Status] = 'Unavailable' WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
+            //try
+            //{
 
-            cnn.Open();
-            command.ExecuteNonQuery();
-            command2.ExecuteNonQuery();
-            command3.ExecuteNonQuery();
-            //MessageBox.ShowMessage("Counseling Record successfully received.", this.Page);
-            cnn.Close();
 
             //EMAIL NOTIFICATION
             string html = "<!DOCTYPE html><html><body>";
-            html = html + "<div style='background-color: #003366; color: white; width: 50%; padding: 25px;'><h1>LEW HRIS CAS Notification - New Corrective Action Initialized</h1></div>";
-            html = html + "<table style='max-width: 75%; background-color: #cccccc; border-style: solid; border-color: transparent;'><div style='padding: 20px; font-family:'Segoe UI', Calibri, Arial, Helvetica; font-size: 16px;'>";
-            html = html + "";
-            html = html + "<tr width='50px'><td><strong>New Corrective Action Initialized</strong></td><td></td></tr>";
-            html = html + "<tr><td>Submitted by: </td><td>" + txtSupervisor.Text + "</td></tr>";
-            html = html + "<tr><td>Submitted on: </td><td>" + txtDateEntered.Text + "</td></tr>";
-            html = html + "<tr><td></td><td></td></tr>";
-            html = html + "<tr><td>Counseling ID: </td><td>" + txtCounselingID.Text + "</td></tr>";
-            html = html + "<tr><td>Incident Date/Time: </td><td>" + txtDateIncident.Text + "</td></tr>";
-            html = html + "<tr><td>Employee Name: </td><td>" + txtEmployeeName.Text + "</td></tr>";
-            html = html + "<tr><td></td><td></td></tr>";
-            html = html + "<tr><td>To review corrective action: </td><td><a href='http://10.40.80.28:150/lewHRISlocal/HumanResources/HRManager/HRManagerDash'>LEW HRIS CAS Human Resources Dashboard</a></td></tr>";
-            html = html + "</table></div>";
-            html = html + "<br /><br />";
-            html = html + "<div>If you have questions or experience issues accessing the report, please contact the LEW IT Department at 559-925-7547 or casuncion@leprinofoods.com.</div>";
-            html = html + "<br /><br />";
-            html = html + "<div>Thank you,<br>Leprino Foods Company | Lemoore West - PLC/ISS Department</div></body></html>";
+                html = html + "<div style='background-color: #003366; color: white; width: 50%; padding: 25px;'><h1>LEW HRIS CAS Notification - New Corrective Action Initialized</h1></div>";
+                html = html + "<table style='max-width: 75%; background-color: #cccccc; border-style: solid; border-color: transparent;'><div style='padding: 20px; font-family:'Segoe UI', Calibri, Arial, Helvetica; font-size: 16px;'>";
+                html = html + "";
+                html = html + "<tr width='50px'><td><strong>New Corrective Action Initialized</strong></td><td></td></tr>";
+                html = html + "<tr><td>Submitted by: </td><td>" + txtSupervisor.Text + "</td></tr>";
+                html = html + "<tr><td>Submitted on: </td><td>" + txtDateEntered.Text + "</td></tr>";
+                html = html + "<tr><td></td><td></td></tr>";
+                html = html + "<tr><td>Counseling ID: </td><td>" + txtCounselingID.Text + "</td></tr>";
+                html = html + "<tr><td>Incident Date/Time: </td><td>" + txtDateIncident.Text + "</td></tr>";
+                html = html + "<tr><td>Employee Name: </td><td>" + txtEmployeeName.Text + "</td></tr>";
+                html = html + "<tr><td></td><td></td></tr>";
+                html = html + "<tr><td>To review corrective action: </td><td><a href='http://10.40.80.28:150/lewHRISlocal/HumanResources/HRManager/HRManagerDash'>LEW HRIS CAS Human Resources Dashboard</a></td></tr>";
+                html = html + "</table></div>";
+                html = html + "<br /><br />";
+                html = html + "<div>If you have questions or experience issues accessing the report, please contact the LEW IT Department at 559-925-7547 or casuncion@leprinofoods.com.</div>";
+                html = html + "<br /><br />";
+                html = html + "<div>Thank you,<br>Leprino Foods Company | Lemoore West - PLC/ISS Department</div></body></html>";
 
 
-            var items = new List<string>();
-            foreach (ListItem li in ListBox1.Items)
-            {
-                if (li.Selected)
+            
+                var items = new List<string>();
+                foreach (ListItem li in ListBox1.Items)
                 {
-                    items.Add(li.Text);
+                    //if (li.Selected)
+                    if (li.Selected)
+                    {
+                        items.Add(GetUserEmail(li.Value.Trim()));
+                    }
                 }
-            }
-            string ListHRM = string.Join(", ", items);
+                string ListHRM = string.Join(", ", items);
+                
+                System.Net.Mail.MailMessage newReport = new System.Net.Mail.MailMessage();
+                SmtpClient smtpClient = new SmtpClient("smtp.leprino.local");
+                newReport.From = new MailAddress("no-reply@leprinofoods.com", "LEW HRIS CAS Notification");
+                newReport.To.Add(ListHRM);
+                newReport.Subject = "CASE New Disciplinary Action - " + txtSubject.Text;
+                newReport.IsBodyHtml = true;
+                newReport.Body = html;
 
-            //smtpClient.Send(from, txtEmpEmail.Text + ", " + currEmail, "New Counseling Report: " + txtSubject.Text, bodyMessage);
-            //System.Net.Mail.MailMessage newReport = new System.Net.Mail.MailMessage(from, to);
-            System.Net.Mail.MailMessage newReport = new System.Net.Mail.MailMessage();
-            SmtpClient smtpClient = new SmtpClient("smtp.leprino.local");
-            //MailAddress from = new MailAddress("lewiss@leprinofoods.com", "Database Coordinator");
-            //MailAddress to = new MailAddress("casuncion@leprinofoods.com, carlamae.asuncion@gmail.com");
-            //MailAddress from = new MailAddress("lewiss@leprinofoods.com", "Database Coordinator");
-            newReport.From = new MailAddress("no-reply@leprinofoods.com", "LEW HRIS CAS Notification");
-            //newReport.To.Add("casuncion@leprinofoods.com, carlamae.asuncion@gmail.com"); //WILL HAVE TO BE CHANGED TO HR EMAIL ADDRESS
-            newReport.To.Add(ListHRM);
-            newReport.Subject = txtSubject.Text;
-            newReport.IsBodyHtml = true;
-            newReport.Body = html;
+                smtpClient.Send(newReport);
 
-            smtpClient.Send(newReport);
 
-            Response.Redirect("~/HumanResources/HRDash", false);
+                string myConnection;
+                SqlConnection cnn;
+                myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
+                cnn = new SqlConnection(myConnection);
+                cnn.Open();
+
+                SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = @eeStatus, [Sup_Status] = @supStatus, " +
+                 "[HR_Status] = @hrStatus, [Processing_HR_Clerk] = @hrClerk, [Date_HRM_Forwarded] = @dateHRMforwarded, [Date_HR_Finalized] = @dateHRfinalized, " +
+                 " [Counseling_Level] = @counselingLevel, [Actual_Level] = @actualLevel, [Counseling_Subject] = @counselingSubject, [Supervisor_Notes] = @supNotes, " +
+                 "[EE_Comments] = @eeNotes, [Supervisor_FollowUp] = @supFollowUp WHERE [Counseling_ID] = @counselingID", cnn);
+
+
+                SqlParameter[] param = new SqlParameter[13];
+                param[0] = new SqlParameter("@eeStatus", "Unavailable");
+                param[1] = new SqlParameter("@supStatus", "Sup Open");
+                param[2] = new SqlParameter("@hrStatus", "HRM Sent");
+                param[3] = new SqlParameter("@hrClerk", id2.GetLogin());
+                param[4] = new SqlParameter("@dateHRMforwarded", System.DateTime.Now.ToString());
+                param[5] = new SqlParameter("@dateHRfinalized", System.DateTime.Now.ToString());
+                param[6] = new SqlParameter("@counselingLevel", newLevel);
+                param[7] = new SqlParameter("@actualLevel", newCount);
+                param[8] = new SqlParameter("@counselingSubject", txtSubject.Text.Replace("'", "''"));
+                param[9] = new SqlParameter("@supNotes", txtSupComments.Text.Replace("'", "''"));
+                param[10] = new SqlParameter("@eeNotes", txtEmployeeComments.Text.Replace("'", "''"));
+                param[11] = new SqlParameter("@supFollowUp", txtFollowUp.Text.Replace("'", "''"));
+                param[12] = new SqlParameter("@counselingID", txtCounselingID.Text);
+
+                command.Parameters.Add(param[0]);
+                command.Parameters.Add(param[1]);
+                command.Parameters.Add(param[2]);
+                command.Parameters.Add(param[3]);
+                command.Parameters.Add(param[4]);
+                command.Parameters.Add(param[5]);
+                command.Parameters.Add(param[6]);
+                command.Parameters.Add(param[7]);
+                command.Parameters.Add(param[8]);
+                command.Parameters.Add(param[9]);
+                command.Parameters.Add(param[10]);
+                command.Parameters.Add(param[11]);
+                command.Parameters.Add(param[12]);
+
+                object res = command.ExecuteNonQuery();
+
+                SqlCommand command2 = new SqlCommand("INSERT INTO dbo.DisciplinaryRecords SELECT * FROM dbo.CounselingReport WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
+                SqlCommand command3 = new SqlCommand("UPDATE dbo.DisciplinaryRecords SET [EE_Status] = 'Unavailable', [Sup_Status] = 'Unavailable', [HR_Status] = 'HRM Sent'" +
+                    " WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
+
+                command2.ExecuteNonQuery();
+                command3.ExecuteNonQuery();
+                command.Dispose();
+                command2.Dispose();
+                command3.Dispose();
+                cnn.Close();
+
+
+                Response.Redirect("~/HumanResources/HRDash", false);
+            
         }
 
-        public void sendEmail(string hrEmail, string supEmail, string subject, string bodyMessage)
-        {
-            System.Net.Mail.MailMessage newReport = new System.Net.Mail.MailMessage();
-            SmtpClient smtpClient = new SmtpClient("smtp.leprino.local");
-            //MailAddress from = new MailAddress("lewiss@leprinofoods.com", "Database Coordinator");
-            //MailAddress to = new MailAddress("casuncion@leprinofoods.com, carlamae.asuncion@gmail.com");
-            //MailAddress from = new MailAddress("lewiss@leprinofoods.com", "Database Coordinator");
-            newReport.From = new MailAddress("lewiss@leprinofoods.com", "LEW Corrective Action System");
-            newReport.To.Add(hrEmail);
-            newReport.To.Add(supEmail);
-            newReport.Subject = subject;
-            newReport.Body = bodyMessage;
-            newReport.IsBodyHtml = true;
-
-            smtpClient.Send(newReport);
-        }
 
         public class HRISList
         {
@@ -400,44 +332,9 @@ namespace lewHRISlocal.HumanResources
             public string Email { get; set; }
         }
 
-        protected void Button7_Click(object sender, EventArgs e)
+        protected void btnToGeneralist_Click(object sender, EventArgs e)
         {
-            //string selectedItem = "";
-            //if (ListBox1.Items.Count > 0)
-            //{
-            //    for (int i = 0; i < ListBox1.Items.Count; i++)
-            //    {
-            //        if (ListBox1.Items[i].Selected)
-            //        {
-            //            if (selectedItem != "")
-            //            {
-            //                selectedItem = ListBox1.Items[i].Text;
-            //                break;
-            //            }
-            //            else
-            //            {
 
-            //            }
-            //            MessageBox.ShowMessage(selectedItem, this.Page);
-            //        }
-
-            //    }
-            //}
-            var items = new List<string>();
-            foreach (ListItem li in ListBox1.Items)
-            {
-                if (li.Selected)
-                {
-                    items.Add(li.Text);
-                }
-            }
-            MessageBox.ShowMessage(string.Join(", ", items), this.Page);
-
-            for (int i = 0; i < ListBox1.Items.Count; i++)
-            {
-                MessageBox.ShowMessage(ListBox1.Items[i].Text, this.Page);
-            }
-            
         }
     }
 }

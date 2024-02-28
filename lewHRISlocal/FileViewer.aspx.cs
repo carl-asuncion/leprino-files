@@ -93,7 +93,7 @@ namespace lewHRISlocal
         protected void Page_Load(object sender, EventArgs e)
         {
             string id = Request.QueryString["id"].ToString();
-            int empID;
+            
             //string empName = GetFolderName(id);
             try
             {

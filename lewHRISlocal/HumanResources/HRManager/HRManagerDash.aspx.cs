@@ -69,6 +69,7 @@ namespace lewHRISlocal.HumanResources.HRManager
                 this.BindGrid2();
                 this.BindGrid3();
                 this.BindGrid4();
+                this.BindGrid5();
             }
         }
 
@@ -124,6 +125,19 @@ namespace lewHRISlocal.HumanResources.HRManager
             //Context.ApplicationInstance.CompleteRequest();
         }
 
+        protected void LinkButton5_Click(object sender, EventArgs e)
+        {
+            //Determine the RowIndex of the Row whose Button was clicked.
+            int rowIndex = ((sender as LinkButton).NamingContainer as GridViewRow).RowIndex;
+
+            //Get the value of column from the DataKeys using the RowIndex.
+            int id = Convert.ToInt32(GridView4.DataKeys[rowIndex].Values[0]);
+
+            Response.Redirect("~/Supervisors/DisciplinaryDetail.aspx?id=" + id + "", false);    // SHOW SUPERVISOR LEVEL DISCIPLINARY ACTION
+            //Response.Redirect("/Supervisors/Detail.aspx");
+            //Context.ApplicationInstance.CompleteRequest();
+        }
+
         private void BindGrid1()
         {
             IIdentity id = HttpContext.Current.User.Identity;
@@ -171,7 +185,7 @@ namespace lewHRISlocal.HumanResources.HRManager
             DataSet ds = new DataSet();
             SqlDataAdapter sda = new SqlDataAdapter();
             SqlCommand command = new SqlCommand("SELECT * FROM [View_3] " +
-                "WHERE ([Overall Status] = 'Sent to HRM for Final Review')", cnn);
+                "WHERE ([Overall Status] = 'Ready to Close Disciplinary Action')", cnn);
             sda.SelectCommand = command;
             using (DataTable dt = new DataTable())
             {
@@ -260,6 +274,40 @@ namespace lewHRISlocal.HumanResources.HRManager
             cnn.Close();
         }
 
+        private void BindGrid5()
+        {
+            IIdentity id = HttpContext.Current.User.Identity;
+
+            string myConnection;
+            SqlConnection cnn;
+            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
+            cnn = new SqlConnection(myConnection);
+            cnn.Open();
+            //Response.Write("Connection Made");
+            DataSet ds = new DataSet();
+            SqlDataAdapter sda = new SqlDataAdapter();
+            SqlCommand command = new SqlCommand("SELECT * FROM [View_3] " +
+                "WHERE [Overall Status] = 'Disciplinary Action Pending Meeting'", cnn);
+            sda.SelectCommand = command;
+            using (DataTable dt = new DataTable())
+            {
+                sda.Fill(dt);
+                if (dt.Rows.Count>0)
+                {
+                    //RecentSubs.Text = dt.Rows.Count.ToString() + " record(s) returned.";
+                    GridView4.DataSource = dt;
+                    GridView4.DataBind();
+                }
+                else
+                {
+                    txtPendingMeeting.Text = "No records available.";
+                }
+            }
+
+            command.Dispose();
+            cnn.Close();
+        }
+
 
         protected void mydatagrid_DataBound(object sender, EventArgs e)
         {
@@ -298,6 +346,15 @@ namespace lewHRISlocal.HumanResources.HRManager
             else txtClosedRecord.Text = "No record(s) returned.";
         }
 
+        protected void GridView4_DataBound(object sender, EventArgs e)
+        {
+            if ((GridView4.DataSource as DataTable).Rows.Count>0)
+            {
+                txtPendingMeeting.Text = (GridView4.DataSource as DataTable).Rows.Count + " total record(s) returned.";
+            }
+            else txtPendingMeeting.Text = "No record(s) returned.";
+        }
+
         protected void mydatagrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             mydatagrid.PageIndex = e.NewPageIndex;
@@ -319,6 +376,12 @@ namespace lewHRISlocal.HumanResources.HRManager
         {
             GridView3.PageIndex = e.NewPageIndex;
             this.BindGrid4();
+        }
+
+        protected void GridView4_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridView4.PageIndex = e.NewPageIndex;
+            this.BindGrid5();
         }
     }
 }

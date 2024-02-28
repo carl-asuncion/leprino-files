@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="LEW HRIS CAS Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DisplayBlog.aspx.cs" Inherits="lewHRISlocal.DisplayBlog" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <div style="background-color: rgba(255, 255, 255, 0.6); padding: 10px;  border-radius: 10px;">
     <style>
         .well {
             top: 50px;
@@ -100,14 +101,18 @@
         <%--<div id="loader"></div>--%>
         <div id="myDiv1">
             <div class="well">
-               <div style="align-content: center; align-items: center; text-align: center"><h2><strong>HRIS - Corrective Action System Update</strong></h2></div>
+               <div style="align-content: center; align-items: center; text-align: center"><h3><strong>HRIS - Corrective Action System Update</strong></h3></div>
             </div>
         </div>
         <div class="wellbody">
-            <h3><asp:Label ID="lblTitle" runat="server" Font-Bold="True" /></h3>
-            <h6><asp:Label ID="lblDate" runat="server" Font-Italic="True" /></h6>
+            <asp:Button ID="btnEmployees" runat="server" Text="&laquo; Home" CssClass="w3-btn w3-blue w3-ripple w3-round-large" PostBackUrl="~/Default.aspx" />
+            <br />
+            <h3><asp:Label ID="lblTitle" runat="server" Font-Bold="True" Font-Size="16px"/></h3>
+            <h6><asp:Label ID="lblDate" runat="server" Font-Italic="True" Font-Size="11px" /></h6>
             <hr />
-            <asp:Label ID="lblBody" runat="server" BackColor="Transparent" />
+            <div style="font-size: 12px;">
+                <asp:Label ID="lblBody" runat="server" BackColor="Transparent"  Font-Size="12px"/>
+            </div>
         </div>
     <br />
     <br />
@@ -141,4 +146,5 @@
             }
         }
     </script>--%>
+    </div>
 </asp:Content>

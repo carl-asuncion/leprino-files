@@ -4,38 +4,122 @@
 
 <html lang="en">
 <head runat="server">
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv='cache-control' content='no-cache'> 
+    <meta http-equiv='expires' content='0'> 
+    <meta http-equiv='pragma' content='no-cache'> 
     <title><%: Page.Title %> - Lemoore West </title>
-    
+
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="~/Content/w3.css">
     <webopt:bundlereference runat="server" path="~/Content/css" />
-    <link rel="stylesheet" href="/Content/w3.css">
     <!--link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" /-->
     <style>
+        /* Style the side navigation */
+        .sidenav {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: 52px;
+            /*left: 0;*/
+            left: -215px; /* Position them outside of the screen */
+            transition: 0.3s; /* Add transition on hover */
+            background-color: #ff9933;
+            overflow-x: hidden;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .sidenav:hover {
+            left: 0; /* On mouse-over, make the elements appear as they should */
+
+        }
+
+        /*.sidenav a:hover #sidearrow {
+           background-color: #ff9933;
+        }*/
+        .sidenav #sidearrow:hover {
+           background-color: #ff9933;
+        }
+
+
+        /* Side navigation links */
+        .sidenav a {
+          color: black;
+          padding: 15px;
+          text-decoration: none;
+          display: block;
+          font-size: 14px;
+        }
+
+        /* Change color on hover */
+        .sidenav a:hover {
+            background-color: #ff6600;
+            color: black;
+        }
+
+        .sidenav label {
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidenav label:hover {
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Style the content */
+        #newSearch {
+            left: 25px;
+            margin-left: 15px;
+            padding-left: 5px;
+            box-shadow: #555 1px 1px 1px inset;
+            border-radius: 1px;
+        }
+
+        #txtSearch {
+            left: 25px;
+            margin-left: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('https://icons8.com/icon/123508/search-client');
+            background-position: 10px 10px; 
+            background-repeat: no-repeat;
+            padding: 5px 5px 5px 5px;
+        }
+
+        .mybutton {
+            background-image: url(https://icons8.com/icon/123508/search-client);
+            background-size: 22px 22px;
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
         #myFoot {
             position: fixed;
             left: 0;
             bottom: 0;
             width: 100%;
-            height: 50px;
             background-color: #003366;
             color: white;
             text-align: center;
             padding-top: 15px;
+            z-index: 5;
             box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2), 0 -6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-        #specialbtn {
-        top: 0px;
-        float: left;
-        display: block;
-        color: #f2f2f2;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
         }
 
         /* Change the color of links on hover */
@@ -65,9 +149,10 @@
           margin: -76px 0 0 -76px;
           border: 16px solid #f3f3f3;
           border-radius: 50%;
-          border-top: 16px solid #003366;
-          border-right: 16px solid #ff9933;
-          border-bottom: 16px solid #ff6600;
+          border-top: 16px solid black;
+          border-right: 16px solid #003366;
+          border-left: 16px solid #ff6600;
+          border-bottom: 16px solid #ff9933;
           -webkit-animation: spin 2s linear infinite;
           animation: spin 2s linear infinite;
         }
@@ -105,103 +190,185 @@
             display: none;
             text-align: center;
         }
-        
-        @media print {
-          body {
-            display: none;  /* hide whole page */
-          }
-        }
-        
-        @media only screen and (min-width: 600px) {
-          /* For tablets: */
-          .col-s-1 {width: 8.33%;}
-          .col-s-2 {width: 16.66%;}
-          .col-s-3 {width: 25%;}
-          .col-s-4 {width: 33.33%;}
-          .col-s-5 {width: 41.66%;}
-          .col-s-6 {width: 50%;}
-          .col-s-7 {width: 58.33%;}
-          .col-s-8 {width: 66.66%;}
-          .col-s-9 {width: 75%;}
-          .col-s-10 {width: 83.33%;}
-          .col-s-11 {width: 91.66%;}
-          .col-s-12 {width: 100%;}
+
+        #LinkButton2 {
+            height: auto;
+            width: 22px;
+            background-color: #003366;
+            border-radius: 10px;
+            color: white;
+            position: inherit;
+            align-content: center;
         }
 
-        @media only screen and (min-width: 600px) {
-          /* For tablets: */
-          .col-md-1 {width: 8.33%;}
-          .col-md-2 {width: 16.66%;}
-          .col-md-3 {width: 25%;}
-          .col-md-4 {width: 33.33%;}
-          .col-md-5 {width: 41.66%;}
-          .col-md-6 {width: 50%;}
-          .col-md-7 {width: 58.33%;}
-          .col-md-8 {width: 66.66%;}
-          .col-md-9 {width: 75%;}
-          .col-md-10 {width: 83.33%;}
-          .col-md-11 {width: 91.66%;}
-          .col-md-12 {width: 100%;}
+        #LinkButton2:hover {
+            height: auto;
+            width: 22px;
+            background-color: #003366;
+            border-radius: 10px;
+            color: white;
+            position: inherit;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+            align-content: center;
         }
+
+        #myIcon:hover {
+            background-color: #003366;
+            color: white;
+        }
+
+        /* Feedback tab */ 
+	    /*#feedbackTab {
+		    right:0; 
+            position:fixed; 
+            width:40px; 
+            height:150px; 
+            top: 150px; 
+            z-index:1; 
+            writing-mode: vertical-lr;*/
+	    /*}*/
     </style>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+     <link href="jquery-ui.css" rel="stylesheet" type="text/css" />  
+    <script src="jquery.min.js" type="text/javascript"></script>  
+    <script src="jquery-ui.min.js" type="text/javascript"></script>  
+      
 </head>
-
-<%--<body>--%>
 <body style="margin:0;">
     <div id="loader"></div>
+     <a style="z-index:1;right:0;position:fixed;width:40px;height:150px;top: 
+    200px;writing-mode: vertical-lr; text-orientation:sideways;background-color: 
+              transparent;text-decoration: none;padding-right:30px;border-radius: 30px 0px 0px 30px;"
+         class="w3-button w3-blue w3-border-0 w3-hover-black w3-hover-text-white w3-text-black" onclick="showFeedback()"><strong>feedback</strong></a>
     <form runat="server" style="margin-top: 0px; padding: 0px;">
         
+    <div class="w3-top w3-bar w3-mynavy w3-mobile">
+        <div class="w3-bar w3-mynavy">
+          
+          <a id="myIcon" style="text-decoration:none; align-content: center;" href="/lewHRISlocal/Default.aspx" class="w3-bar-item w3-mynavy w3-hover-mynavy"><asp:Image ID="Image2" runat="server" 
+              ImageUrl="/Images/Leprino_Foods_White.png" Height="25px" 
+              ImageAlign="TextTop" Width="35px" /><strong> LEW HRIS Corrective Action System</strong></a>
+          <a  style="text-decoration:none;" href="/lewHRISlocal/Contact.aspx" class="w3-bar-item w3-button w3-hide-small w3-hover-orange">Contact</a>
 
-    <div class="topnav" >
-        <div class="row">
-            <div class="col-md-6">
-                <a runat="server" href="~/" id="myNavHeader"><asp:Image ID="Image1" runat="server" ImageUrl="http://10.40.80.28:150/lewHRISlocal/Leprino_Foods_White.png" Height="25px" ImageAlign="TextTop" Width="35px" /> LEW Human Resources Information System</a>
-                <%--<a runat="server" href="~/">Home</a>--%>
-                <a runat="server" href="~/Contact">Contact</a>
-            </div>
-            <div class="col-md-6" >
-                <a runat="server" class="navUser" style="text-align: right; justify-content:right">Logged in as<asp:TextBox ID="TextBox1" runat="server" BackColor="#003366" BorderStyle="None" ForeColor="White" Font-Italic="True" ReadOnly="true" Enabled="false" Width="100px"></asp:TextBox></a>
-                <asp:LinkButton ID="btnSignOut" runat="server" onclick="btnSignOut_Click">(Sign Out)</asp:LinkButton>
-            </div>
+          <asp:TextBox ID="txtID1" runat="server" BackColor="#003366" BorderStyle="None" CssClass="w3-bar-item w3-hide-small"
+                      ForeColor="White" Font-Italic="True" ReadOnly="true" Enabled="false" style="min-width: 200px; text-align: center; background-color: transparent;"></asp:TextBox>
+          <asp:Button ID="btnSignOut" runat="server" Text="Sign Out"  class="w3-bar-item w3-button w3-hide-small w3-hover-orange" OnClick="btnSignOut_Click"  style="align-content: center;" UseSubmitBehavior="False"/>
+<%--          <asp:Button ID="btnSignOut" runat="server" Text="Sign Out"  class="w3-bar-item w3-button w3-hide-small w3-hover-orange" OnClientClick="logout()"  style="align-content: center;" UseSubmitBehavior="False"/>--%>
+          <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium w3-hover-orange" style="text-decoration:none;" onclick="myFunction2()">&#9776;</a>
+        </div>
+
+        <div id="demo" class="w3-bar-block w3-mynavy w3-hide w3-hide-large w3-hide-medium w3-mobile w3-centered">
+            <a class="w3-bar-item w3-button w3-mobile w3-hover-orange" style="text-decoration:none"  href="/lewHRISlocal/Contact.aspx">Contact</a>
+            <asp:Button ID="Button1" runat="server" Text="Sign Out"  class="w3-bar-item w3-button w3-mobile w3-hover-orange" OnClick="btnSignOut_Click"  style="align-content: center; height: inherit;"  UseSubmitBehavior="False"/>
+            <asp:TextBox ID="TextBox1" runat="server" CssClass="w3-bar-item w3-mobile" BackColor="#003366" BorderStyle="None" ForeColor="White" Font-Italic="True" ReadOnly="true" style="min-width: 200px; text-align: center; background-color: transparent; height: inherit;"></asp:TextBox>
         </div>
     </div>
-        
-        
-        
-        <div class="container body-content animate-bottom" onchange="lol()"> 
-            
+    
+
+        <%--<div class="container body-content animate-bottom" onchange="lol()">--%>
+        <div class="container body-content" onchange="lol()">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
-                
             </asp:ContentPlaceHolder>
             <%--<hr />--%>
-            <footer id="myFoot">
-                        <p>&copy; <%: DateTime.Now.Year %> - Leprino Foods Company - Lemoore West | ISS Department</p>
-                <asp:ScriptManager runat="server">
-                    <Scripts>
-                        <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
-                        <%--Framework Scripts--%>
-                        <asp:ScriptReference Name="MsAjaxBundle" />
-                        <asp:ScriptReference Name="jquery" />
-                        <asp:ScriptReference Name="bootstrap" />
-                        <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
-                        <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
-                        <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
-                        <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
-                        <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
-                        <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
-                        <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
-                        <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
-                        <asp:ScriptReference Name="WebFormsBundle" />
-                        <%--Site Scripts--%>
-                    </Scripts>
-                </asp:ScriptManager>
-            </footer>
+          
+            <%--<footer id="myFoot">--%>
+                
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+<%--            </footer>--%>
         </div>
+    <div class="w3-bottom w3-mobile" style="width: 100%; padding-top: 15px;">
+                <p style="color: white; text-align: center; font-size:12px;">&copy; <%: DateTime.Now.Year %> - Leprino Foods Company - Lemoore West | ISS Department</p>
+            </div>
 
-        
-    </form>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <!-- Modal -- NEW TONER -->
+        <div id="showFeedback" class="w3-modal" style="z-index: 9999;">
+          <div class="w3-modal-content w3-card-4 w3-animate-top">
+            <header class="w3-container w3-blue w3-display-container w3-center"> 
+              <span onclick="document.getElementById('showFeedback').style.display='none'" class="w3-button w3-blue w3-display-topright"><i class="fa fa-remove"></i></span>
+              <h4><strong>We would like to hear from you!</strong></h4>
+              <p>Experiencing any issues? Missing reports or encountering errors? Please feel free to leave a detailed message below, including section of the site and/or what you were trying to do before encountering issues.</p>
+              <p>If you have any suggestions and/or comments about the site, please let us know as well.</p>
+            </header>
+            <div class="w3-container w3-centered">
+                <br />
+                <div class="w3-col">
+                  <%--<form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/action_page.php" target="_blank">--%>
+                  <div class="w3-container w3-card-4 w3-padding-16 w3-white" runat="server">
+                  <div class="w3-section">      
+                    <label>Name</label>
+                    <input class="w3-input" type="text" name="Name" id="userName" runat="server">
+                  </div>
+                  <div class="w3-section">      
+                    <label>Email</label>
+                    <input id="userEmail" runat="server" class="w3-input" type="text" name="Email">
+                  </div>
+                  <div class="w3-section">      
+                    <label>Message</label>
+                    <input id="userMessage" runat="server" class="w3-input" type="text" name="Message">
+                  </div>  
+                  <input class="w3-check" type="checkbox" checked name="Like">
+                  <label>I Like it!</label>
+                    <asp:Button ID="Button3" runat="server" Text="Send"  
+                        class="w3-button w3-blue w3-text-black w3-hover-black w3-text-hover-white w3-right w3-theme"
+                        OnClick="Button2_Click1"  style="align-content: center; height: inherit;"  UseSubmitBehavior="False"/>
+
+
+                  <%--<button type="submit" class="w3-button w3-right w3-theme">Send</button>--%>
+                  </div>
+                  <br />
+                </div>
+            </div>
+            <footer class="w3-container w3-blue w3-center" style="padding: 5px;">
+              <p style="font-size: 10px;">Call phone extension 7395 (Dulce Looney) for immediate support.</p>
+            </footer>
+          </div>
+        </div>
+    <!-- Modal -- NEW TONER -->
+        <div id="showThanks" class="w3-modal" style="z-index: 9999;">
+          <div class="w3-modal-content w3-card-4 w3-animate-top">
+            <header class="w3-container w3-blue w3-display-container w3-center"> 
+              <span onclick="document.getElementById('showThanks').style.display='none'" class="w3-button w3-blue w3-display-topright"><i class="fa fa-remove"></i></span>
+              <h4><strong>Message sent! Thank you!</strong></h4>
+            </header>
+            <div class="w3-container w3-centered">
+                <br />
+                <div class="w3-col">
+                  <%--<form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/action_page.php" target="_blank">--%>
+                  <div class="w3-container w3-card-4 w3-padding-16 w3-white" runat="server">
+                  <div class="w3-section">      
+                    <label>We appreciate your feedback! Have a great day!</label>
+                  </div>
+                  <%--<button type="submit" class="w3-button w3-right w3-theme">Send</button>--%>
+                  </div>
+                  <br />
+                </div>
+            </div>
+            <footer class="w3-container w3-blue w3-center" style="padding: 5px;">
+              <p style="font-size: 10px;">Call phone extension 7395 (Dulce Looney) for immediate support.</p>
+            </footer>
+          </div>
+        </div>
+            </form>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script language='javascript'>
             //document.onreadystatechange = function () {
             //    if (document.readyState !== "complete") {
@@ -260,6 +427,56 @@
                     }, 1000);
                 }
             }
+
+            /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+
+            function myFunction2() {
+                var x = document.getElementById("demo");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                } else {
+                    x.className = x.className.replace(" w3-show", "");
+                }
+            }
+
+            // Script for side navigation
+            function showFeedback() {
+                document.getElementById("showFeedback").style.display = "block";
+            }
+
         </script>
+
+
 </body>
+    <script type="text/javascript">
+        var t;
+        window.onload = resetTimer;
+        document.onmousemove = resetTimer;
+        document.onkeypress = resetTimer;
+
+        function logout() {
+
+            try {
+                document.execCommand("ClearAuthenticationCache");
+                window.location.href = window.location.protocol.replace(/\:/g, '') + "://" + window.location.host + "~/UnauthorizedAccess.aspx";
+                alert('hello');
+            }
+            catch (e) { }
+
+
+        }
+
+        function resetTimer() {
+            window.clearTimeout(t);
+            t = window.setTimeout(logout, 900000);
+        }
+    </script>
 </html>

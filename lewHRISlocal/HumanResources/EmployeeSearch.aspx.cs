@@ -73,6 +73,11 @@ namespace lewHRISlocal.HumanResources
                 this.BindGrid1(empName);
             }
 
+            if (Session["empName"] != null)
+            {
+                Response.Redirect("~/HumanResources/EmployeeSearch.aspx?id=" + empName + "", false);
+            }
+
         }
 
         protected void LinkButton1_Click(object sender, EventArgs e)
@@ -83,6 +88,7 @@ namespace lewHRISlocal.HumanResources
             //Get the value of column from the DataKeys using the RowIndex.
             int id = Convert.ToInt32(mydatagrid.DataKeys[rowIndex].Values[0]);
 
+            Session["empName"] = id;
             Response.Redirect("~/HumanResources/SearchResults.aspx?id=" + id + "", false);
             //Response.Redirect("/Supervisors/Detail.aspx");
             //Context.ApplicationInstance.CompleteRequest();
@@ -102,7 +108,8 @@ namespace lewHRISlocal.HumanResources
             DataSet ds2 = new DataSet();
             SqlDataAdapter sda2 = new SqlDataAdapter();
             SqlCommand command2 = new SqlCommand("SELECT [EE], ([First_Name] + ' ' + [Last_Name]) AS [EE_Name],[Cost_Center_Description] FROM [MasterList] WHERE [First_Name] LIKE '%" + empName + "%' " +
-                "OR [Last_Name] LIKE '%" + empName + "%' OR [EE] LIKE '%" + empName + "%' ORDER BY [First_Name]", cnn);
+                "OR [Last_Name] LIKE '%" + empName + "%' OR [EE] LIKE '%" + empName +
+                "%' OR ([First_Name] + ' ' + [Last_Name]) LIKE '%" + empName + "%' ORDER BY [First_Name]", cnn);
             sda2.SelectCommand = command2;
             using (DataTable dt2 = new DataTable())
             {

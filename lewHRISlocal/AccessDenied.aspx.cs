@@ -68,13 +68,15 @@ namespace lewHRISlocal
             this.DisablePageCaching();
 
             // Increase authentication attempts
-            this.AuthenticationAttempts = this.AuthenticationAttempts + 1;
+            //this.AuthenticationAttempts = this.AuthenticationAttempts + 1;
+            this.AuthenticationAttempts =  this.AuthenticationAttempts + 1;
 
 
             if (this.AuthenticationAttempts == 1)
             {
+
                 // Change previous user to current user
-                this.PreviousUser = this.CurrentUser;
+                this.PreviousUser = this.CurrentUser;       //ORIGINAL--- Try changing this
 
                 // Send the first 401 response
                 this.Send401();
@@ -87,6 +89,8 @@ namespace lewHRISlocal
                 // so it think this is not a problem.
                 if (this.AuthenticationAttempts == 2 && this.CurrentUser.Equals(this.PreviousUser))
                 {
+
+
                     // Send the second 401 response
                     this.Send401();
                 }
@@ -95,6 +99,14 @@ namespace lewHRISlocal
                     // Clear the session of the current user. This will clear all sessions objects including the "AuthenticationAttempts"
                     Session.Abandon();
                     Session.Clear();
+                    HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+                    HttpContext.Current.Response.Cache.SetValidUntilExpires(false);
+                    HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+                    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    HttpContext.Current.Response.Cache.SetNoStore();
+                    HttpContext.Current.Response.ExpiresAbsolute = DateTime.UtcNow.Subtract(new TimeSpan(1, 0, 0, 0));
+                    HttpContext.Current.Response.Expires = 0;
+                    HttpContext.Current.Response.Cache.AppendCacheExtension("no-store, no-cache, must-revalidate, proxy-revalidate, post-check=0, pre-check=0");
 
                     // Redirect back to the main page
                     Response.Redirect("Default.aspx");

@@ -373,6 +373,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="HumanResources\AdminPage\AddTeamMember.aspx" />
+    <Content Include="HumanResources\AdminPage\ModifyAssignment.aspx" />
+    <Content Include="HumanResources\AdminPage\ManageTeam.aspx" />
+    <Content Include="HumanResources\AdminPage\CorrectiveActionMatrix.aspx" />
+    <Content Include="HumanResources\AdminPage\AdminPanel.aspx" />
+    <Content Include="HumanResources\AdminPage\Create.aspx" />
+    <Content Include="HumanResources\PrintRequests.aspx" />
     <Content Include="HumanResources\DashboardResultReview.aspx" />
     <Content Include="HumanResources\DashboardResultOpen.aspx" />
     <Content Include="HumanResources\DashboardResultDA.aspx" />
@@ -389,11 +396,28 @@
     <Content Include="HumanResources\EmployeeSearch.aspx" />
     <Content Include="HumanResources\SearchResults.aspx" />
     <Content Include="HumanResources\HRSite.Master" />
+    <Content Include="HumanResources\WebForm1.aspx" />
+    <Content Include="Images\femalepng.png" />
+    <Content Include="Images\hrwallpaper3.jpg" />
+    <Content Include="Images\Leprino_Foods_Black.png" />
+    <Content Include="Images\Leprino_Foods_Only.png" />
+    <Content Include="Images\Leprino_Foods_Only_Washed.png" />
+    <Content Include="Images\Leprino_Foods_Only_Washed_1.png" />
+    <Content Include="Images\Leprino_Foods_Only_Washed_2.png" />
+    <Content Include="Images\Leprino_Foods_White.png" />
+    <Content Include="Images\malepng.png" />
+    <Content Include="Images\asuncica.jpg" />
+    <Content Include="Images\Personnel\timmam.jpg" />
+    <Content Include="SupportDocs\CONFIDENTIAL_WM.png" />
+    <Content Include="Images\Personnel\looneydu.jpg" />
+    <Content Include="Images\Personnel\knoxja.jpg" />
+    <Content Include="Images\Personnel\urritile.jpg" />
+    <Content Include="Images\Personnel\vasquera.jpg" />
+    <Content Include="Images\Personnel\haasve.jpg" />
     <Content Include="UnauthorizedAccess.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="AccessDenied.aspx" />
     <Content Include="DisciplinePrint.aspx" />
-    <None Include="Properties\PublishProfiles\WebDeployTEST.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="HumanResources\HRDash.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -452,6 +476,7 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ExceptionLogging.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -515,6 +540,55 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\AddTeamMember.aspx.cs">
+      <DependentUpon>AddTeamMember.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\AddTeamMember.aspx.designer.cs">
+      <DependentUpon>AddTeamMember.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\ModifyAssignment.aspx.cs">
+      <DependentUpon>ModifyAssignment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\ModifyAssignment.aspx.designer.cs">
+      <DependentUpon>ModifyAssignment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\ManageTeam.aspx.cs">
+      <DependentUpon>ManageTeam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\ManageTeam.aspx.designer.cs">
+      <DependentUpon>ManageTeam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\CorrectiveActionMatrix.aspx.cs">
+      <DependentUpon>CorrectiveActionMatrix.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\CorrectiveActionMatrix.aspx.designer.cs">
+      <DependentUpon>CorrectiveActionMatrix.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\AdminPanel.aspx.cs">
+      <DependentUpon>AdminPanel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\AdminPanel.aspx.designer.cs">
+      <DependentUpon>AdminPanel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\Create.aspx.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HumanResources\AdminPage\Create.aspx.designer.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HumanResources\PrintRequests.aspx.cs">
+      <DependentUpon>PrintRequests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HumanResources\PrintRequests.aspx.designer.cs">
+      <DependentUpon>PrintRequests.aspx</DependentUpon>
     </Compile>
     <Compile Include="HumanResources\DashboardResultReview.aspx.cs">
       <DependentUpon>DashboardResultReview.aspx</DependentUpon>
@@ -632,6 +706,13 @@
     <Compile Include="HumanResources\HRSite.Master.designer.cs">
       <DependentUpon>HRSite.Master</DependentUpon>
     </Compile>
+    <Compile Include="HumanResources\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HumanResources\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UnauthorizedAccess.aspx.cs">
       <DependentUpon>UnauthorizedAccess.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -717,8 +798,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
-    <Folder Include="SupportDocs\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -745,15 +825,14 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54473</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>https://localhost:44344/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>https://lewvsql02.leprino.local:4431/lewHRISlocal</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

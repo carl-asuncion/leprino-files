@@ -140,6 +140,7 @@ namespace lewHRISlocal.Employees
                 dataReader.Close();
                 command.Dispose();
                 cnn.Close();
+                cnn.Dispose();
 
                 txtEmployeeComments.Text = updatedComment;
             }
@@ -148,50 +149,50 @@ namespace lewHRISlocal.Employees
 
         protected void btnAck_Click(object sender, EventArgs e)
         {
-            IIdentity id2 = HttpContext.Current.User.Identity;
-            currUser = id2.GetLogin();
-            //MessageBox.ShowMessage(txtEmployeeComments.Text, this.Page);
-            string myConnection;
-            string SupStatus;
-            SqlConnection cnn;
-            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
-            cnn = new SqlConnection(myConnection);
+            //IIdentity id2 = HttpContext.Current.User.Identity;
+            //currUser = id2.GetLogin();
+            ////MessageBox.ShowMessage(txtEmployeeComments.Text, this.Page);
+            //string myConnection;
+           
+            //SqlConnection cnn;
+            //myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
+            //cnn = new SqlConnection(myConnection);
 
 
 
-            SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = 'EE Acknowledged', [HR_Status] = 'HR Sent'" +
-            ", [EE_Comments] = '" + txtEmployeeComments.Text + "', [EE_Acknowledge_Date] = '" + System.DateTime.Now.ToString() + "', [EE_Signed] = '" + currUser.ToString() + "' WHERE [Counseling_ID] = "
-            + txtCounselingID.Text + "", cnn);
+            //SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = 'EE Acknowledged', [HR_Status] = 'HR Sent'" +
+            //", [EE_Comments] = '" + txtEmployeeComments.Text + "', [EE_Acknowledge_Date] = '" + System.DateTime.Now.ToString() + "', [EE_Signed] = '" + currUser.ToString() + "' WHERE [Counseling_ID] = "
+            //+ txtCounselingID.Text + "", cnn);
 
-            cnn.Open();
-            command.ExecuteNonQuery();
+            //cnn.Open();
+            //command.ExecuteNonQuery();
 
-            //MessageBox.ShowMessage(newStatus, this.Page);
-            SqlCommand command2 = new SqlCommand("Select [Overall Status] from dbo.View_1 WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
-            SqlDataReader dataReader;
-            //String Output = " ";
-            dataReader = command2.ExecuteReader();
-            while (dataReader.Read())
-            {
-                txtNewStatus.Text = dataReader.GetString(0);
-            }
-            dataReader.Close();
-            command2.Dispose();
-            cnn.Close();
+            ////MessageBox.ShowMessage(newStatus, this.Page);
+            //SqlCommand command2 = new SqlCommand("Select [Overall Status] from dbo.View_1 WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
+            //SqlDataReader dataReader;
+            ////String Output = " ";
+            //dataReader = command2.ExecuteReader();
+            //while (dataReader.Read())
+            //{
+            //    txtNewStatus.Text = dataReader.GetString(0);
+            //}
+            //dataReader.Close();
+            //command2.Dispose();
+            //cnn.Close();
 
-            if (txtNewStatus.Text == "Sent to HR for Final Review")
-            {
-                string subject = "New Counseling Report - " + txtCounselingID.Text + "";
-                string bodyMessage = "<h3>New Counseling Report</h3>" +
-                                        "<br />New counseling Report for " + txtEmployeeName.Text + " has been submitted. <br />Please review.";
+            //if (txtNewStatus.Text == "Sent to HR for Final Review")
+            //{
+            //    string subject = "New Counseling Report - " + txtCounselingID.Text + "";
+            //    string bodyMessage = "<h3>New Counseling Report</h3>" +
+            //                            "<br />New counseling Report for " + txtEmployeeName.Text + " has been submitted. <br />Please review.";
 
-                sendEmail("casuncion@leprinofoods.com", "casuncion@leprinofoods.com", subject, bodyMessage);
-            }
-            else
-            {
-                //Nothing
-            }
-            Response.Redirect("~/Employees/EmployeeDash", false);
+            //    sendEmail("casuncion@leprinofoods.com", "casuncion@leprinofoods.com", subject, bodyMessage);
+            //}
+            //else
+            //{
+            //    //Nothing
+            //}
+            //Response.Redirect("~/Employees/EmployeeDash", false);
         }
 
 
@@ -202,47 +203,47 @@ namespace lewHRISlocal.Employees
 
         protected void btnReject_Click(object sender, EventArgs e)
         {
-            IIdentity id2 = HttpContext.Current.User.Identity;
-            currUser = id2.GetLogin();
-            //MessageBox.ShowMessage(txtEmployeeComments.Text, this.Page);
-            string myConnection;
-            SqlConnection cnn;
-            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
-            cnn = new SqlConnection(myConnection);
+            //IIdentity id2 = HttpContext.Current.User.Identity;
+            //currUser = id2.GetLogin();
+            ////MessageBox.ShowMessage(txtEmployeeComments.Text, this.Page);
+            //string myConnection;
+            //SqlConnection cnn;
+            //myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
+            //cnn = new SqlConnection(myConnection);
 
-            SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = 'EE Reject', [HR_Status] = 'HR Sent'" +
-                ", [EE_Comments] = '" + txtEmployeeComments.Text + "', [EE_Acknowledge_Date] = '" + System.DateTime.Now.ToString() + "', [EE_Signed] = '" + currUser.ToString() + "' WHERE [Counseling_ID] = "
-                + txtCounselingID.Text + "", cnn);
+            //SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = 'EE Reject', [HR_Status] = 'HR Sent'" +
+            //    ", [EE_Comments] = '" + txtEmployeeComments.Text + "', [EE_Acknowledge_Date] = '" + System.DateTime.Now.ToString() + "', [EE_Signed] = '" + currUser.ToString() + "' WHERE [Counseling_ID] = "
+            //    + txtCounselingID.Text + "", cnn);
 
-            cnn.Open();
-            command.ExecuteNonQuery();
+            //cnn.Open();
+            //command.ExecuteNonQuery();
 
-            //MessageBox.ShowMessage(newStatus, this.Page);
-            SqlCommand command2 = new SqlCommand("Select [Overall Status] from dbo.View_1 WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
-            SqlDataReader dataReader;
-            //String Output = " ";
-            dataReader = command2.ExecuteReader();
-            while (dataReader.Read())
-            {
-                txtNewStatus.Text = dataReader.GetString(0);
-            }
-            dataReader.Close();
-            command2.Dispose();
-            cnn.Close();
+            ////MessageBox.ShowMessage(newStatus, this.Page);
+            //SqlCommand command2 = new SqlCommand("Select [Overall Status] from dbo.View_1 WHERE [Counseling_ID] = " + txtCounselingID.Text + "", cnn);
+            //SqlDataReader dataReader;
+            ////String Output = " ";
+            //dataReader = command2.ExecuteReader();
+            //while (dataReader.Read())
+            //{
+            //    txtNewStatus.Text = dataReader.GetString(0);
+            //}
+            //dataReader.Close();
+            //command2.Dispose();
+            //cnn.Close();
 
-            if (txtNewStatus.Text == "Sent to HR for Final Review")
-            {
-                string subject = "New Counseling Report - " + txtCounselingID.Text + "";
-                string bodyMessage = "<h3>New Counseling Report</h3>" +
-                                        "<br />New counseling Report for " + txtEmployeeName.Text + " has been submitted. <br />Please review.";
+            //if (txtNewStatus.Text == "Sent to HR for Final Review")
+            //{
+            //    string subject = "New Counseling Report - " + txtCounselingID.Text + "";
+            //    string bodyMessage = "<h3>New Counseling Report</h3>" +
+            //                            "<br />New counseling Report for " + txtEmployeeName.Text + " has been submitted. <br />Please review.";
 
-                sendEmail("casuncion@leprinofoods.com", "casuncion@leprinofoods.com", subject, bodyMessage);
-            }
-            else
-            {
-                //Nothing
-            }
-            Response.Redirect("~/Employees/EmployeeDash", false);
+            //    sendEmail("casuncion@leprinofoods.com", "casuncion@leprinofoods.com", subject, bodyMessage);
+            //}
+            //else
+            //{
+            //    //Nothing
+            //}
+            //Response.Redirect("~/Employees/EmployeeDash", false);
         }
 
         public void sendEmail(string hrEmail, string supEmail, string subject, string bodyMessage)

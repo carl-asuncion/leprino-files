@@ -30,7 +30,7 @@ namespace lewHRISlocal
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnHumanResources;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnHumanResources;
 
         /// <summary>
         /// btnSupervisor control.
@@ -39,7 +39,7 @@ namespace lewHRISlocal
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSupervisor;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnSupervisor;
 
         /// <summary>
         /// btnEmployees control.
@@ -48,7 +48,7 @@ namespace lewHRISlocal
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEmployees;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnEmployees;
 
         /// <summary>
         /// rptPages control.

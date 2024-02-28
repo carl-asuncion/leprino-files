@@ -37,7 +37,7 @@ namespace lewHRISlocal.General
     }
     public partial class DetailOnly : System.Web.UI.Page
     {
-        string newStatus;
+        
         string udpateSupComments;
 
 
@@ -75,7 +75,7 @@ namespace lewHRISlocal.General
 
             txtCounselingID.Text = id;
             //timedateAck.Text = "Acknowledging on " + System.DateTime.Now.ToString();
-            Context.ApplicationInstance.CompleteRequest();
+            // Removed 12.28.23 due to SQL injection going on //Context.ApplicationInstance.CompleteRequest();
 
 
             string myConnection;
@@ -97,7 +97,11 @@ namespace lewHRISlocal.General
                 txtEmpID.Text = "" + dataReader.GetInt32(1);
                 txtEmployeeName.Text = dataReader.GetString(4);
                 txtDepartment.Text = dataReader.GetString(5);
-                txtPosition.Text = dataReader.GetString(36);
+                if (!dataReader.IsDBNull(36))
+                {
+                    txtPosition.Text = dataReader.GetString(36);
+                }
+                else txtPosition.Text = "";
                 txtCategory.Text = dataReader.GetString(6);
                 txtSubCategory.Text = dataReader.GetString(7);
                 if (!dataReader.IsDBNull(8))
@@ -209,21 +213,21 @@ namespace lewHRISlocal.General
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            string myConnection;
-            SqlConnection cnn;
-            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
-            cnn = new SqlConnection(myConnection);
+            //string myConnection;
+            //SqlConnection cnn;
+            //myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
+            //cnn = new SqlConnection(myConnection);
 
-            SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = 'EE Acknowledged', [Sup_Status] = 'Sup Finalized', [HR_Status] = 'HR Sent'" +
-                ", [Supervisor_FollowUp] = '" + txtFollowUp.Text + "', [Supervisor_Finalized_Date] = '" + System.DateTime.Now.ToString() + "' WHERE [Counseling_ID] = "
-                + txtCounselingID.Text + "", cnn);
+            //SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = 'EE Acknowledged', [Sup_Status] = 'Sup Finalized', [HR_Status] = 'HR Sent'" +
+            //    ", [Supervisor_FollowUp] = '" + txtFollowUp.Text + "', [Supervisor_Finalized_Date] = '" + System.DateTime.Now.ToString() + "' WHERE [Counseling_ID] = "
+            //    + txtCounselingID.Text + "", cnn);
 
-            cnn.Open();
-            command.ExecuteNonQuery();
-            MessageBox.ShowMessage("Counseling Record forwarded to HR successfully.", this.Page);
-            cnn.Close();
-            //MessageBox.ShowMessage(newStatus, this.Page);
-            Response.Redirect("~/Supervisors/SupervisorDash", false);
+            //cnn.Open();
+            //command.ExecuteNonQuery();
+            //MessageBox.ShowMessage("Counseling Record forwarded to HR successfully.", this.Page);
+            //cnn.Close();
+            ////MessageBox.ShowMessage(newStatus, this.Page);
+            //Response.Redirect("~/Supervisors/SupervisorDash", false);
         }
 
         

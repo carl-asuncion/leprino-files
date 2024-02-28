@@ -53,30 +53,6 @@ namespace lewHRISlocal.HumanResources
                 this.BindGrid1(empName);
             }
 
-
-            //DataSet ds2 = new DataSet();
-            //SqlDataAdapter sda2 = new SqlDataAdapter();
-            //SqlCommand command2 = new SqlCommand("SELECT [Date_Incident], [EE_Name], [Counseling_Category]," +
-            //    "[Counseling_SubCategory], [Counseling_Subject], [Counseling_Count], [EE_Status], [Sup_Status], " +
-            //    "[Counseling_ID], [Supervisor_Name], [Overall Status] FROM [View_2] WHERE [EE_Name] LIKE '%" + empName + "%' ORDER BY [Date_Incident]", cnn);
-            //sda2.SelectCommand = command2;
-            //using (DataTable dt2 = new DataTable())
-            //{
-            //    sda2.Fill(dt2);
-            //    if (dt2.Rows.Count>0)
-            //    {
-            //        DisciplinaryRecord.Text = dt2.Rows.Count.ToString() + " record(s) returned.";
-            //        GridView1.DataSource = dt2;
-            //        GridView1.DataBind();
-            //    }
-            //    else
-            //    {
-            //        DisciplinaryRecord.Text = "No records that matches '" + empName + "'.";
-            //    }
-            //}
-            //command2.Dispose();
-            //command.Dispose();
-            //cnn.Close();
         }
 
         protected void LinkButton1_Click(object sender, EventArgs e)
@@ -132,7 +108,7 @@ namespace lewHRISlocal.HumanResources
 
             DataSet ds2 = new DataSet();
             SqlDataAdapter sda2 = new SqlDataAdapter();
-            SqlCommand command = new SqlCommand("SELECT * FROM [View_1] WHERE [Employee_Status] LIKE '%" + empName + "%' AND [Overall Status] = 'Sent to HR for Final Review' " +
+            SqlCommand command = new SqlCommand("SELECT * FROM [View_1] WHERE [Employee_Status] LIKE '%" + empName + "%' AND [Overall Status] IN ('Ready to Close', 'Sent to HR for Final Review') " +
                " ORDER BY [Date_Incident]", cnn);
             sda2.SelectCommand = command;
             using (DataTable dt2 = new DataTable())
@@ -168,6 +144,11 @@ namespace lewHRISlocal.HumanResources
             string empName = Request.QueryString["empName"].ToString();
             mydatagrid.PageIndex = e.NewPageIndex;
             this.BindGrid1(empName);
+        }
+
+        protected void mydatagrid_Sorting(object sender, GridViewSortEventArgs e)
+        {
+
         }
     }
 }

@@ -20,13 +20,54 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Services;
 
 
 namespace lewHRISlocal
 {
     public partial class _Default : Page
     {
-   
+        [System.Web.Services.WebMethod]
+        public static List<string> GetEmployee()
+        {
+            IIdentity id2 = HttpContext.Current.User.Identity;
+            List<string> termsList = new List<string>();
+            //Grab All Employees
+            using (var context = new PrincipalContext(ContextType.Domain, id2.GetDomain()))
+            {
+                using (var group = GroupPrincipal.FindByIdentity(context, "LEW - Employees"))
+                {
+                    if (group == null)
+                    {
+                        //MessageBox.Show("Group does not exist");
+                    }
+                    else
+                    {
+                        var users = group.GetMembers(true);
+                        foreach (UserPrincipal user in users)
+                        {
+                                termsList.Add(user.Name.ToString());
+                            //ListBox1.Items.Add(String.Format(columns, user.Name.ToString(), user.EmailAddress.ToString()));
+                            //termsList.Add(user.Name.ToString());
+                            //ListBox1.Items.AddRange(new object[] { user.EmailAddress.ToString(), user.Name.ToString() });
+                        }
+                    }
+                    
+                }
+                
+            }
+
+            return termsList;
+            //var ListHRM = string.Join(", ", termsList);
+            //string[] array = termsList.ToArray();
+
+            ////TextBox1.Text = array.Length + "";
+            ////TextBox1.Text =  string.Join(", ", array);
+            ////return string.Join(", ", array);
+            //return array;
+
+        }
+
         public static class MessageBox
         {
             public static void ShowMessage(string MessageText, Page MyPage)
@@ -41,11 +82,12 @@ namespace lewHRISlocal
             {
                 this.PopulateBlogs();
             }
+
         }
 
         private void PopulateBlogs()
         {
-            string query = "SELECT [Blog_ID], [Title], REPLACE([Title], ' ', '-') [SLUG], [Body], [Date_Entered] FROM [Blogs]";
+            string query = "SELECT [Blog_ID], [Title], REPLACE([Title], ' ', '-') [SLUG], [Body], [Date_Entered] FROM [Blogs] ORDER BY [Blog_ID] DESC";
             string conString = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(conString))
             {
@@ -63,7 +105,12 @@ namespace lewHRISlocal
                         }
                     }
                 }
+
+                con.Dispose();
+                con.Close();
             }
+
+            
         }
 
         protected void btnSupervisor_Click(object sender, EventArgs e)
@@ -85,10 +132,10 @@ namespace lewHRISlocal
                 // check if user is member of that group
                 if (user.IsMemberOf(group))
                 {
-                    //Response.Redirect("~/Supervisors/SupervisorDash", false);
-                    //MessageBox.ShowMessage("User is a member of LEW - Admins", this.Page);
-                    //return;
-                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('User is a member of LEW - Exempt.'); window.location.replace('Supervisors/SupervisorDash');", true);
+                    Response.Redirect("~/Supervisors/SupervisorDash", false);
+                    ////MessageBox.ShowMessage("User is a member of LEW - Admins", this.Page);
+                    ////return;
+                    //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('User is a member of LEW - Exempt.'); window.location.replace('Supervisors/SupervisorDash');", true);
                 }
                 else MessageBox.ShowMessage("User is not a member of LEW - Exempt. Please contact your local HR.", this.Page);
             }
@@ -113,13 +160,15 @@ namespace lewHRISlocal
                 // check if user is member of that group
                 if (user.IsMemberOf(group))
                 {
-                    //Response.Redirect("~/Supervisors/SupervisorDash", false);
-                    //MessageBox.ShowMessage("User is a member of LEW - Admins", this.Page);
-                    //return;
-                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('User is a member of LEW - Human Resource Department.'); window.location.replace('HumanResources/HRDash');", true);
+                    Response.Redirect("~/HumanResources/HRDash", false);
+                    ////MessageBox.ShowMessage("User is a member of LEW - Admins", this.Page);
+                    ////return;
+                    //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('User is a member of LEW - Human Resource Department.'); window.location.replace('HumanResources/HRDash');", true);
                 }
                 else MessageBox.ShowMessage("User is not a member of LEW - Human Resource Department. Please contact your local HR.", this.Page);
             }
+
+            //Response.Redirect("~/HumanResources/HRDash", false);
         }
 
         //protected void btnTest_Click(object sender, EventArgs e)
@@ -153,6 +202,46 @@ namespace lewHRISlocal
                 Response.Redirect("~/DisplayBlog.aspx?hotelId=" + hotelId + "", false);
             }
         }
+
+        //protected void Button1_Click(object sender, EventArgs e)
+        //{
+        //    IIdentity id2 = HttpContext.Current.User.Identity;
+        //    List<string> termsList = new List<string>();
+        //    //Grab All Employees
+
+        //    //MessageBox.ShowMessage(id2.GetDomain(), this.Page);
+        //    using (var context = new PrincipalContext(ContextType.Domain, id2.GetDomain()))
+        //    {
+        //        using (var group = GroupPrincipal.FindByIdentity(context, "LEW - Employees"))
+        //        {
+        //            if (group == null)
+        //            {
+        //                //MessageBox.Show("Group does not exist");
+        //            }
+        //            else
+        //            {
+        //                var users = group.GetMembers(true);
+        //                foreach (UserPrincipal user in users)
+        //                {
+        //                    //ListBox1.Items.Add(String.Format(columns, user.Name.ToString(), user.EmailAddress.ToString()));
+        //                    termsList.Add(user.Name.ToString());
+        //                    //ListBox1.Items.AddRange(new object[] { user.EmailAddress.ToString(), user.Name.ToString() });
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    var ListHRM = string.Join(", ", termsList);
+        //    string[] array = termsList.ToArray();
+
+        //    //TextBox1.Text = array.Length + "";
+        //    TextBox1.Text =  string.Join(", ", array);
+        //    string strValue = Page.Request.Form["name of the textarea HTML control"].ToString();
+        //    //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert(ListHRM); window.location.replace('HumanResources/HRDash');", true);
+        //    //MessageBox.ShowMessage(ListHRM, this.Page);
+
+        //    //return terms.ToString();
+        //}
 
 
         //public bool ValidateCredentials(string pUsername, string pPassword, string pDomain)

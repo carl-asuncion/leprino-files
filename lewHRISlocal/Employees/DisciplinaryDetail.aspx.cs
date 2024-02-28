@@ -216,6 +216,7 @@ namespace lewHRISlocal.Employees
             dataReader.Close();
             command.Dispose();
             cnn.Close();
+            cnn.Dispose();
 
             //IIdentity id2 = HttpContext.Current.User.Identity;
             //// set up domain context
@@ -249,7 +250,7 @@ namespace lewHRISlocal.Employees
         protected void btnAck_Click(object sender, EventArgs e)
         {
             IIdentity id2 = HttpContext.Current.User.Identity;
-            string eeAck;
+            
 
             string myConnection;
             SqlConnection cnn;
@@ -294,6 +295,7 @@ namespace lewHRISlocal.Employees
             //command2.Dispose();
 
             cnn.Close();
+            cnn.Dispose();
             //MessageBox.ShowMessage(newStatus, this.Page);
             Response.Redirect("~/Employees/EmployeeDash", false);
         }
@@ -302,7 +304,7 @@ namespace lewHRISlocal.Employees
         protected void btnReject_Click(object sender, EventArgs e)
         {
             IIdentity id2 = HttpContext.Current.User.Identity;
-            string eeAck;
+            //string eeAck;
 
             string myConnection;
             SqlConnection cnn;
@@ -347,6 +349,7 @@ namespace lewHRISlocal.Employees
             //command2.Dispose();
 
             cnn.Close();
+            cnn.Dispose();
             //MessageBox.ShowMessage(newStatus, this.Page);
             Response.Redirect("~/Employees/EmployeeDash", false);
         }

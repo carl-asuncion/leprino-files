@@ -47,14 +47,15 @@
             <tr>
                 <td>
                     <asp:Button ID="btnSubmit" Text="Submit" runat="server" OnClick="Submit" />
+                    <asp:Button ID="Button1" Text="Submit" runat="server" OnClick="Button1_Click" />
                 </td>
             </tr>
         </table>
         <%--<script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>--%>
-        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+       <%-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         <script type="text/javascript">
             tinymce.init({ selector: 'textarea' });
-        </script>
+        </script>--%>
     </form>
 </body>
 </html>

@@ -21,19 +21,22 @@
             width: 250px;
             position: fixed;
             z-index: 1;
-            top: 52px;
-            /*left: 0;*/
-            left: -215px; /* Position them outside of the screen */
+            top: 0;
+            left: 0;
+            color: white;
+            padding-left: 10px;
+            padding-right: 10px;
+            /*left: -215px;*/ /* Position them outside of the screen */
             transition: 0.3s; /* Add transition on hover */
-            background-color: #ff9933;
-            overflow-x: hidden;
+            background-color: #003366;
+            overflow-x: auto;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
-        .sidenav:hover {
-            left: 0; /* On mouse-over, make the elements appear as they should */
+        /*.sidenav:hover {
+            left: 0;*/ /* On mouse-over, make the elements appear as they should */
 
-        }
+        /*}*/
 
         /*.sidenav a:hover #sidearrow {
            background-color: #ff9933;
@@ -45,8 +48,8 @@
 
         /* Side navigation links */
         .sidenav a {
-          color: black;
-          padding: 15px;
+          color: white;
+          padding: 5px;
           text-decoration: none;
           display: block;
           font-size: 14px;
@@ -54,23 +57,23 @@
 
         /* Change color on hover */
         .sidenav a:hover {
-            background-color: #ff6600;
+            /*background-color: #ff6600;*/
             color: black;
         }
 
         .sidenav label {
-            color: black;
-            padding: 10px;
+            color: white;
+            padding: 5px;
             text-decoration: none;
             display: block;
         }
 
-        .sidenav label:hover {
+        /*.sidenav label:hover {
             color: black;
-            padding: 10px;
+            padding: 5px;
             text-decoration: none;
             display: block;
-        }
+        }*/
 
         /* Style the content */
         #newSearch {
@@ -82,6 +85,7 @@
         }
 
         #txtSearch {
+            color: black;
             left: 25px;
             margin-left: 15px;
             width: 100%;
@@ -114,7 +118,7 @@
             color: white;
             text-align: center;
             padding-top: 15px;
-            z-index: 5;
+            z-index: 0;
             box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2), 0 -6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
@@ -145,9 +149,10 @@
           margin: -76px 0 0 -76px;
           border: 16px solid #f3f3f3;
           border-radius: 50%;
-          border-top: 16px solid #003366;
-          border-right: 16px solid #ff9933;
-          border-bottom: 16px solid #ff6600;
+          border-top: 16px solid black;
+          border-right: 16px solid #003366;
+          border-left: 16px solid #ff6600;
+          border-bottom: 16px solid #ff9933;
           -webkit-animation: spin 2s linear infinite;
           animation: spin 2s linear infinite;
         }
@@ -196,7 +201,7 @@
             align-content: center;
         }
 
-        #LinkButton2:hover {
+        /*#LinkButton2:hover {
             height: auto;
             width: 22px;
             background-color: #003366;
@@ -205,67 +210,167 @@
             position: inherit;
             box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
             align-content: center;
+        }*/
+
+        .hrsitemastercontent {
+           /* float: right;
+            width: 80%;*/
+           padding-left: 260px;
+           padding-right: 10px;
+        }
+
+        /* Use a media query to add a breakpoint at 800px: */
+        @media screen and (max-width: 995px) {
+          .hrsitemastercontent {
+            left: 0; /* The width is 100%, when the viewport is 800px or smaller */
+            width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+            padding: 10px;
+          }
+        }
+
+        .notification {
+          background-color: #555;
+          color: white;
+          text-decoration: none;
+          padding: 15px 26px;
+          position: relative;
+          display: inline-block;
+          border-radius: 2px;
+        }
+
+        .notification:hover {
+          background: red;
+        }
+
+        .notification .badge {
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          padding: 5px 10px;
+          border-radius: 50%;
+          background-color: red;
+          color: white;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <%--<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js'></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>--%>
 </head>
 <body style="margin:0;">
-    <div id="loader"></div>>
+    <div id="loader"></div>
+     
     <form runat="server" style="margin-top: 0px; padding: 0px">
-        
+    
+    <!-- Top Nav Bar -->
+    <div class="w3-top w3-bar w3-mynavy w3-mobile">
+        <div class="w3-bar w3-mynavy">
+          
+          <a id="myIcon" style="text-decoration:none" class="w3-bar-item w3-mynavy w3-hover-mynavy" href="/lewHRISlocal/Default.aspx"><asp:Image ID="Image2" runat="server" 
+              ImageUrl="~/Images/Leprino_Foods_White.png" Height="20px" 
+              ImageAlign="TextTop" Width="35px" /><strong> LEW HRIS Corrective Action System</strong></a>
+          <a  style="text-decoration:none;  height: inherit;" href="/lewHRISlocal/Contact.aspx" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-orange">Contact</a>
 
-    <div class="topnav" >
-       <div class="row">
-            <div class="col-md-6">
-                <a runat="server" href="~/" id="myNavHeader"><asp:Image ID="Image1" runat="server" ImageUrl="http://10.40.80.28:150/lewHRISlocal/Leprino_Foods_White.png" Height="25px" ImageAlign="TextTop" Width="35px" /> LEW Human Resources Information System</a>
-                <%--<a runat="server" href="~/">Home</a>--%>
-                <a runat="server" href="~/Contact">Contact</a>
-            </div>
-            <div class="col-md-6" >
-                <a runat="server" class="navUser" style="text-align: right; justify-content:right">Logged in as<asp:TextBox ID="TextBox1" runat="server" BackColor="#003366" BorderStyle="None" ForeColor="White" Font-Italic="True" ReadOnly="true" Enabled="false" Width="100px"></asp:TextBox></a>
-                <asp:LinkButton ID="btnSignOut" runat="server" onclick="btnSignOut_Click">(Sign Out)</asp:LinkButton>
-            </div>
+          
+          <asp:Button ID="btnSignOut" runat="server" Text="Sign Out"  class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-orange w3-right w3-hover-white w3-hover-text-black" OnClick="btnSignOut_Click"  style="align-content: center; height: inherit;" UseSubmitBehavior="False"/>
+          <asp:TextBox ID="txtID1" runat="server" BackColor="#003366" BorderStyle="None" CssClass="w3-bar-item w3-hide-small w3-hide-medium w3-right"
+            ForeColor="White" Font-Italic="True" ReadOnly="true" Enabled="false" style="min-width: 200px; text-align: center; background-color: transparent; height: inherit;"></asp:TextBox>
+          <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-orange w3-right" style="text-decoration:none" onclick="myFunction2()">&#9776;</a>
         </div>
 
-    </div>
-    <div class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" style="text-align: right" id="sidearrow" aria-disabled="True"><span>☰</span></a>
-        
-        <label id="SearchLabel" style="padding: 10px;">Search Employee : </label>
-            <div>
-                <asp:TextBox ID="txtSearch" runat="server" AutoPostBack="False" Width="150px" placeholder="Search..."></asp:TextBox>&nbsp;
-                <%--<asp:LinkButton ID="LinkButton2" runat="server" class="btn btn-default" style="position:relative" OnClick="LinkButton2_Click" BorderStyle="None" Height="20px"><i class="fa fa-search" style="align-content: center; text-align:center; position: center"></i></asp:LinkButton>--%>
-                <asp:LinkButton ID="LinkButton2" runat="server" class="fa fa-search"  OnClick="LinkButton2_Click" BorderStyle="None" Width="40px">  </asp:LinkButton>
+        <div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-mobile w3-centered" style="padding: 10px;"> <!--w3-mynavy-->
+            <div class="w3-container w3-round-large" style="background-color: rgba(255, 255, 255, 0.6); padding: 10px; margin: auto;">
+                <div class="w3-row">
+                    <div class="w3-col" style="width:55px;">
+                        <div>
+                            <img runat="server" src="/Images/femalepng.png" style="height: 50px;" class="w3-round-large" id="image1a"/>
+                        </div>
+                    </div>
+                    <div class="w3-rest w3-transparent" style="vertical-align: middle;">
+                        <div><strong>
+                            <asp:Label ID="hiddenTimeOfDay" runat="server" Text="<timeofday>"></asp:Label>, 
+                            <asp:Label ID="hiddenUser" runat="server" Text="<user>"></asp:Label>!</strong></div> <!-- Add date/time to get time of day + user -->
+                        <div class="w3-bar w3-transparent"><a class="w3-hover-none" style="cursor: pointer"><i class="material-symbols-outlined" style="font-size: 20px;">settings</i></a> <a class="w3-hover-none" style="cursor: pointer"><i class="material-symbols-outlined" style="font-size: 20px;">logout</i></a></div>
+                    </div>
+                </div>
             </div>
-            <%--<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>--%>
-            <%--<asp:TextBox ID="txtSearch" runat="server" AutoPostBack="False" Width="150px"></asp:TextBox>
-            <asp:ImageButton ID="ImageButton1" runat="server" class="glyphicon glyphicon-search" Width="22px" />--%>
-            <%--<a runat="server" onclick="LinkButton2_Click" style="object-fit: fill; width: 22px; vertical-align: middle"><i class="fa fa-search"></i></a>--%>
-            <%--<asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="https://img.icons8.com/ios-filled/256/search-client.png" style="object-fit: fill; height: 22px; width: 22px; vertical-align: middle" OnClick="ImageButton1_Click"/>--%>
-            <%--<asp:Label ID="Label3" runat="server" Text=""><i class="fa fa-search"></i></asp:Label>--%>
-            <%--<asp:LinkButton ID="LinkButton2"  class="btn btn-primary" runat="server" OnClick="LinkButton2_Click"><i class="fa fa-search"></i></asp:LinkButton>--%>
+            <br />
+            <div class="w3-center w3-centered" style="display: inline-flex; align-content: center; column-gap: 25px; text-align: center; align-items: center; margin: auto; width: 100%;">
+                <div style="align-content: center; width: 100%; display: inline-flex;">
+                     <asp:TextBox ID="TextBox2" runat="server" AutoPostBack="False" placeholder="Search..." CssClass="w3-text-black w3-input w3-hover-text-black"></asp:TextBox> 
+                     <asp:LinkButton ID="LinkButton8" runat="server" OnClick="LinkButton2_Click" BorderStyle="None" Width="40px" CssClass="w3-hover-text-white w3-hover-none w3-center w3-centered" ><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: bottom; margin: auto; padding: 5px;">person_search</i></asp:LinkButton>
+                </div>
+            </div>
+            <hr />
+            <div class="w3-bar">
+                <asp:LinkButton ID="LinkButton3" runat="server" OnClick="btnDashboard_Click" CssClass="w3-bar-item w3-hover-sand w3-round-medium w3-text-white" Font-Underline="false"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">home</i> Dashboard</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton4" runat="server" OnClick="btnHRMDash_Click" CssClass="w3-bar-item w3-hover-sand w3-round-medium w3-text-white" Font-Underline="false"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">supervisor_account</i> Supervisor Access</asp:LinkButton>
+                <asp:LinkButton ID="btnPrintRequests2" runat="server" OnClick="btnPrintRequests_Click" CssClass="w3-bar-item w3-hover-sand w3-round-medium w3-text-white" Font-Underline="false"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">supervisor_account</i> Print Requests</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton5" runat="server" OnClientClick="javascript:window.open('http://lewvsql02/Reports/browse/LEW%20-%20Human%20Resource%20Department');" CssClass="w3-bar-item w3-hover-sand w3-round-medium w3-text-white" Font-Underline="false"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">analytics</i> SSRS Reporting <i class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle;">open_in_new</i></asp:LinkButton>
+                <br/>
+                <asp:LinkButton ID="LinkButton9" runat="server" OnClick="btnAdminPanel_Click" CssClass="w3-bar-item w3-hover-sand w3-round-medium w3-text-white" Font-Underline="false"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">admin_panel_settings</i> Admin Panel</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton10" runat="server" CssClass="w3-bar-item w3-hover-sand w3-round-medium w3-text-white w3-disabled" Font-Underline="false"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">settings</i> Settings</asp:LinkButton>
+            </div>
+            <hr />
+            <div>
+                <a class="w3-bar-item w3-button w3-mobile w3-hover-sand w3-round-medium" style="text-decoration:none; align-content: center; text-align: center;"  href="/lewHRISlocal/Contact.aspx">Contact</a>
+                <asp:Button ID="Button1" runat="server" Text="Sign Out"  class="w3-bar-item w3-button w3-mobile w3-hover-sand w3-round-medium" OnClick="btnSignOut_Click"  UseSubmitBehavior="False" style="align-content: center; height: inherit; text-align: center;" />
+                <asp:TextBox ID="TextBox1" runat="server" CssClass="w3-bar-item w3-mobile" BackColor="#003366" BorderStyle="None" ForeColor="White" Font-Italic="True" ReadOnly="true" style="min-width: 200px; text-align: center; background-color: transparent; height: inherit;"></asp:TextBox>
+            </div>
+        </div>
+    </div>
 
-    
-        <br />
-        <br />
-        <br />
-        <%--<label id="Label1" style="padding: 10px;">Category </label>
-          <a runat="server" href="~/HumanResources/Introductory/IntroductoryDash">Introductory Employees</a>
-          <a runat="server" href="~/HumanResources/PartTime/PartTimeDash">Part-Time Employees</a>
-          <a runat="server" href="~/HumanResources/FullTime/FullTimeDash">Full-Time Employees</a>--%>
-        <label id="Label2" style="padding: 10px;">Special Access </label>
-          <asp:LinkButton ID="btnHRMDash" runat="server" OnClick="btnHRMDash_Click">HR Manager & <br />Generalists Access</asp:LinkButton>
-        <label id="Label3" style="padding: 10px;">Reporting </label>
-          <asp:LinkButton ID="LinkButton1" runat="server" OnClientClick="javascript:window.open('http://10.40.80.28/Reports');">Go To SSRS &raquo;</asp:LinkButton>
+    <!-- Side Nav Bar -->
+    <div class="sidenav w3-hide-small w3-hide-medium">
+       <br />
+       <br />
+       <br />
+       <br />
+       <div class="w3-container w3-round-large" style="background-color: rgba(255, 255, 255, 0.6); padding: 10px;">
+           <div class="w3-row">
+               <div class="w3-third">
+                   <div>
+                       <img runat="server" src="/Images/femalepng.png" style="height: 50px;" class="w3-round-large" id="image2a"/>
+                   </div>
+               </div>
+               <div class="w3-rest">
+                   <div><strong>
+                       <asp:Label ID="currentTimeOfDay" runat="server" Text="<timeofday>"></asp:Label>, 
+                       <asp:Label ID="currentUser" runat="server" Text="<user>"></asp:Label>!</strong></div>
+                   <div class="w3-bar w3-centered w3-center"><a class="w3-bar-item w3-hover-none w3-center" style="cursor: pointer"><i class="material-symbols-outlined" style="font-size: 18px;">settings</i></a> <a class="w3-bar-item w3-hover-none w3-center" style="cursor: pointer"><i class="material-symbols-outlined" style="font-size: 18px;">logout</i></a></div>
+               </div>
+           </div>
+       </div>
+       <br /> 
+       <label id="SearchLabel">Search Employee : </label>
+            <div class="w3-bar w3-centered w3-center">
+                <asp:TextBox ID="txtSearch" runat="server" AutoPostBack="False" Width="150px" placeholder="Search..." CssClass="w3-bar-item"></asp:TextBox>&nbsp;
+                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="LinkButton2_Click" BorderStyle="None" Width="40px" CssClass="w3-bar-item"><i class="material-symbols-outlined" style="font-size: 24px;">person_search</i></asp:LinkButton>
+            </div>
+        <hr />
+        <%--<label id="Label2" style="padding: 10px;">Special Access </label>
+        <label id="Label3" style="padding: 10px;">Reporting </label>--%>
+        <asp:LinkButton ID="btnDashboard" runat="server" OnClick="btnDashboard_Click" CssClass="w3-hover-sand w3-round-medium"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">home</i> Dashboard</asp:LinkButton>
+        <asp:LinkButton ID="btnHRMDash" runat="server" OnClick="btnHRMDash_Click" CssClass="w3-hover-sand w3-round-medium"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">supervisor_account</i> Supervisor Access</asp:LinkButton>
+        <asp:LinkButton ID="btnPrintRequests" runat="server" OnClick="btnPrintRequests_Click" CssClass="w3-hover-sand w3-round-medium"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">print_connect</i> Print Requests</asp:LinkButton>
+        <asp:LinkButton ID="LinkButton1" runat="server" OnClientClick="javascript:window.open('http://lewvsql02/Reports/browse/LEW%20-%20Human%20Resource%20Department');" CssClass="w3-hover-sand w3-round-medium"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">analytics</i> SSRS Reporting <i class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle;">open_in_new</i></asp:LinkButton>
+        <br/>
+        <div class="w3-bar-block w3-display-bottomleft" style="padding: 10px; width: inherit;">
+            <asp:LinkButton ID="btnAdminPanel" runat="server" OnClick="btnAdminPanel_Click" CssClass="w3-hover-sand w3-round-medium"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">admin_panel_settings</i> Admin Panel</asp:LinkButton>
+            <asp:LinkButton ID="LinkButton7" runat="server" CssClass="w3-hover-sand w3-round-medium w3-disabled"><i class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">settings</i> Settings</asp:LinkButton>
+        </div>
     </div>  
     
 
-        <div class="container body-content animate-bottom" onchange="lol()">
+        <%--<div class="animate-bottom hrsitemastercontent" style="left: inherit;" onchange="lol()">--%>
+        <div class="hrsitemastercontent" style="left: inherit;" onchange="lol()">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />
-            <footer id="myFoot">
+            <footer id="myFoot" style="visibility: hidden;">
                 <p>&copy; <%: DateTime.Now.Year %> - Leprino Foods Company - Lemoore West | ISS Department</p>
         <asp:ScriptManager runat="server">
             <Scripts>
@@ -288,55 +393,104 @@
         </asp:ScriptManager>
             </footer>
         </div>
+    <!-- Modal -- NEW TONER -->
+    <div id="showFeedback" class="w3-modal" style="z-index: 9999;">
+      <div class="w3-modal-content w3-card-4 w3-animate-top">
+        <header class="w3-container w3-blue w3-display-container w3-center"> 
+          <span onclick="document.getElementById('showFeedback').style.display='none'" class="w3-button w3-blue w3-display-topright"><i class="fa fa-remove"></i></span>
+          <h4><strong>We would like to hear from you!</strong></h4>
+              <p>Experiencing any issues? Missing reports or encountering errors? Please feel free to leave a detailed message below, including section of the site and/or what you were trying to do before encountering issues.</p>
+              <p>If you have any suggestions and/or comments about the site, please let us know as well.</p>
+        </header>
+        <div class="w3-container w3-centered">
+            <br />
+            <div class="w3-col">
+              <%--<form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/action_page.php" target="_blank">--%>
+              <div class="w3-container w3-card-4 w3-padding-16 w3-white" runat="server">
+              <div class="w3-section">      
+                <label>Name</label>
+                <input class="w3-input" type="text" name="Name" id="userName" runat="server">
+              </div>
+              <div class="w3-section">      
+                <label>Email</label>
+                <input id="userEmail" runat="server" class="w3-input" type="text" name="Email">
+              </div>
+              <div class="w3-section">      
+                <label>Message</label>
+                <input id="userMessage" runat="server" class="w3-input" type="text" name="Message">
+              </div>  
+              <input class="w3-check" type="checkbox" checked name="Like">
+              <label>I Like it!</label>
+                <asp:Button ID="Button3" runat="server" Text="Send"  
+                    class="w3-button w3-blue w3-text-black w3-hover-black w3-text-hover-white w3-right w3-theme"
+                    OnClick="Button2_Click1"  style="align-content: center; height: inherit;"  UseSubmitBehavior="False"/>
 
-    </form>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+              <%--<button type="submit" class="w3-button w3-right w3-theme">Send</button>--%>
+              </div>
+              <br />
+            </div>
+        </div>
+        <footer class="w3-container w3-blue w3-center" style="padding: 5px;">
+          <p style="font-size: 10px;">Call phone extension 7395 (Dulce Looney) for immediate support.</p>
+        </footer>
+      </div>
+    </div>
+<!-- Modal -- NEW TONER -->
+    <div id="showThanks" class="w3-modal" style="z-index: 9999;">
+      <div class="w3-modal-content w3-card-4 w3-animate-top">
+        <header class="w3-container w3-blue w3-display-container w3-center"> 
+          <span onclick="document.getElementById('showThanks').style.display='none'" class="w3-button w3-blue w3-display-topright"><i class="fa fa-remove"></i></span>
+          <h4><strong>Message sent! Thank you!</strong></h4>
+        </header>
+        <div class="w3-container w3-centered">
+            <br />
+            <div class="w3-col">
+              <%--<form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/action_page.php" target="_blank">--%>
+              <div class="w3-container w3-card-4 w3-padding-16 w3-white" runat="server">
+              <div class="w3-section">      
+                <label>We appreciate your feedback! Have a great day!</label>
+              </div>
+              <%--<button type="submit" class="w3-button w3-right w3-theme">Send</button>--%>
+              </div>
+              <br />
+            </div>
+        </div>
+        <footer class="w3-container w3-blue w3-center" style="padding: 5px;">
+          <p style="font-size: 10px;">Call phone extension 7395 (Dulce Looney) for immediate support.</p>
+        </footer>
+      </div>
+    </div>
+        </form>
+    <%--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/start/jquery-ui.css">  
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>  
+<script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>  
         <script language='javascript'>
-            //document.onreadystatechange = function () {
-            //    if (document.readyState !== "complete") {
-            //        document.getElementById(
-            //            "MainContent").style.visibility = "hidden";
-            //        setTimeout(document.getElementById(
-            //            "loader").style.visibility = "visible", 5000);
-            //    } else {
-            //        document.getElementById(
-            //            "loader").style.display = "none";
-            //        document.getElementById(
-            //            "MainContent").style.visibility = "visible";
-            //    }
-            //};
+            // Get the Sidebar
+            var mySidebar = document.getElementById("mySidebar");
 
-            //function ShowProgress() {
-            //    setTimeout(function () {
-            //        document.onreadystatechange = function () {
-            //            if (document.readyState !== "complete") {
-            //                document.getElementById(
-            //                    "MainContent").style.visibility = "hidden";
-            //                setTimeout(document.getElementById(
-            //                    "loader").style.visibility = "visible", 5000);
-            //            } else {
-            //                document.getElementById(
-            //                    "loader").style.display = "none";
-            //                document.getElementById(
-            //                    "MainContent").style.visibility = "visible";
-            //            }
-            //        };
-            //    }, 3000);
+            // Get the DIV with overlay effect
+            var overlayBg = document.getElementById("myOverlay");
 
-            //}
-            ////$(document).click(function () {
-            ////    ShowProgress();
-            ////});
-            //$(document).live("click", function () {
-            //    ShowProgress();
-            //});
+            // Toggle between showing and hiding the sidebar, and add overlay effect
+            function w3_open() {
+                if (mySidebar.style.display === 'block') {
+                    mySidebar.style.display = 'none';
+                    overlayBg.style.display = "none";
+                } else {
+                    mySidebar.style.display = 'block';
+                    overlayBg.style.display = "block";
+                }
+            }
 
-            //function lol() {
-            //    document.getElementById(
-            //        "MainContent").style.visibility = "hidden";
-            //    document.getElementById(
-            //        "loader").style.visibility = "visible";
-            //}
+            // Close the sidebar with the close button
+            function w3_close() {
+                mySidebar.style.display = "none";
+                overlayBg.style.display = "none";
+            }
+
+
             document.onreadystatechange = function () {
                 var state = document.readyState
                 if (state == 'interactive') {
@@ -349,6 +503,63 @@
                     }, 1000);
                 }
             }
+
+            /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+
+            function myFunction2() {
+                var x = document.getElementById("demo");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                } else {
+                    x.className = x.className.replace(" w3-show", "");
+                }
+            }
+
+            // Script for side navigation
+            function showFeedback() {
+                document.getElementById("showFeedback").style.display = "block";
+            }
+
+            // Get the input field
+            var input = document.getElementById("txtSearch");
+
+            // Execute a function when the user presses a key on the keyboard
+            input.addEventListener("keypress", function (event) {
+                // If the user presses the "Enter" key on the keyboard
+                if (event.key === "Enter") {
+                    // Cancel the default action, if needed
+                    event.preventDefault();
+                    // Trigger the button element with a click
+                    document.getElementById("LinkButton2").click();
+                }
+            });
+
+            // Get the input field
+            var input = document.getElementById("Textbox2");
+
+            // Execute a function when the user presses a key on the keyboard
+            input.addEventListener("keypress", function (event) {
+                // If the user presses the "Enter" key on the keyboard
+                if (event.key === "Enter") {
+                    // Cancel the default action, if needed
+                    event.preventDefault();
+                    // Trigger the button element with a click
+                    document.getElementById("LinkButton8").click();
+                }
+            });
         </script>
+     <a style="z-index:1;right:0;position:fixed;width:40px;height:150px;top: 
+200px;writing-mode: vertical-lr; text-orientation:sideways;background-color: 
+          transparent;text-decoration: none;padding-right:30px;padding-top:45px;margin:auto;border-radius: 30px 0px 0px 30px;vertical-align:middle;"
+     class="w3-button w3-blue w3-border-0 w3-hover-black w3-hover-text-white w3-text-black" onclick="showFeedback()"><strong>feedback</strong></a>
+
 </body>
 </html>

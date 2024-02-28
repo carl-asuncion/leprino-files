@@ -102,14 +102,15 @@ namespace lewHRISlocal.HumanResources
 
             //MessageBox.ShowMessage(empName, this.Page);
             IIdentity id = HttpContext.Current.User.Identity;
-            string empName = GetEmpFullName(empId);    
+            string empName = GetEmpFullName(empId);
+
             //TextBox1.Text =  id.GetLogin();
-            //TextBox1.Text =  GetUserFullName(id.GetDomain(), id.GetLogin());
-            
+            //TextBox1.Text =  GetUserFullName(id.GetDomain(), id.GetLogin()); Int32.Parse(TextBoxD1.Text);
+
             if (!this.IsPostBack)
             {
-                this.BindGrid1(empName);
-                this.BindGrid2(empName);
+                this.BindGrid1(empName, Int32.Parse(empId));
+                this.BindGrid2(empName, Int32.Parse(empId));
                 try
                 {
                     Label1.Text = "Files available for " + empName + ".";
@@ -242,7 +243,7 @@ namespace lewHRISlocal.HumanResources
         //}
 
 
-        private void BindGrid1(string empName)
+        private void BindGrid1(string empName, int empID)
         {
             IIdentity id = HttpContext.Current.User.Identity;
 
@@ -255,7 +256,8 @@ namespace lewHRISlocal.HumanResources
 
             DataSet ds2 = new DataSet();
             SqlDataAdapter sda2 = new SqlDataAdapter();
-            SqlCommand command2 = new SqlCommand("SELECT * FROM [View_1] WHERE [EE_Name] LIKE '%" + empName + "%' ORDER BY [Date_Incident]", cnn);
+            SqlCommand command2 = new SqlCommand("SELECT * FROM [View_1] WHERE ([EE_Name] LIKE '%" + empName + "%' OR [EE_ID] = " + empID + ") AND [Overall Status] <> 'Initiated Disciplinary Action - Closed'" +
+                " ORDER BY [Date_Incident] ", cnn);
             sda2.SelectCommand = command2;
             using (DataTable dt2 = new DataTable())
             {
@@ -275,7 +277,7 @@ namespace lewHRISlocal.HumanResources
             cnn.Close();
         }
 
-        private void BindGrid2(string empName)
+        private void BindGrid2(string empName, int empID)
         {
             IIdentity id = HttpContext.Current.User.Identity;
 
@@ -287,7 +289,7 @@ namespace lewHRISlocal.HumanResources
             //Response.Write("Connection Made");
             DataSet ds = new DataSet();
             SqlDataAdapter sda = new SqlDataAdapter();
-            SqlCommand command = new SqlCommand("SELECT * FROM [View_3] WHERE [EE_Name] LIKE '%" + empName + "%' ORDER BY [Date_Incident]", cnn);
+            SqlCommand command = new SqlCommand("SELECT * FROM [View_3] WHERE ([EE_Name] LIKE '%" + empName + "%' OR [EE_ID] = " + empID + ") ORDER BY [Date_Incident]", cnn);
             sda.SelectCommand = command;
             using (DataTable dt = new DataTable())
             {
@@ -329,28 +331,54 @@ namespace lewHRISlocal.HumanResources
         protected void mydatagrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             //string empName = Request.QueryString["empName"].ToString();
+            string empId = Request.QueryString["id"].ToString();
             string empName = txtEmployeeName.Text;
             mydatagrid.PageIndex = e.NewPageIndex;
-            this.BindGrid1(empName);    
+            this.BindGrid1(empName, Int32.Parse(empId));    
         }
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             //string empName = Request.QueryString["empName"].ToString();
+            string empId = Request.QueryString["id"].ToString();
             string empName = txtEmployeeName.Text;
             GridView1.PageIndex = e.NewPageIndex;
-            this.BindGrid2(empName);
+            this.BindGrid2(empName, Int32.Parse(empId));
 
         }
 
         protected void DownloadFile(object sender, EventArgs e)
         {
             IIdentity id2 = HttpContext.Current.User.Identity;
-            //int rowIndex = ((sender as LinkButton).NamingContainer as GridViewRow).RowIndex;
+
+            string empId = Request.QueryString["id"].ToString();
+            string empName = txtEmployeeName.Text;
+
+            //Determine the RowIndex of the Row whose Button was clicked.
+            int rowIndex = ((sender as LinkButton).NamingContainer as GridViewRow).RowIndex;
+
+            //Get the value of column from the DataKeys using the RowIndex.
+            string id = GridView11.DataKeys[rowIndex].Values[0].ToString();
+
+            //Response.Write(String.Format("<script>window.open('{0}','_blank');</script>", ResolveUrl("~/SupportDocs/" + empName + "/" + id)));
+            Response.Write(String.Format("<script>window.open('{0}', '_blank');</script>", ResolveUrl("~/SupportDocs/" + empName + "/" + id)));
+            Response.End();
+            /*//int rowIndex = ((sender as LinkButton).NamingContainer as GridViewRow).RowIndex;
             string filePath = (sender as LinkButton).CommandArgument;
+            //string filePath = Server.MapPath(@"~/SupportDocs/" + (sender as LinkButton).CommandArgument);
             Response.ContentType = ContentType;
+            //Response.AddHeader("Cache-Control", "no-cache, must-revalidate, post-check=0, pre-check=0");
+            //Response.AddHeader("Pragma", "no-cache");
+            //Response.AddHeader("Content-Description", "File Download");
+            //Response.AddHeader("Content-Type", "application/force-download");
+            //Response.AddHeader("Content-Transfer-Encoding", "binary\n");
             Response.AppendHeader("Content-Disposition", "attachment; filename=" + System.IO.Path.GetFileName(filePath));
             Response.WriteFile(filePath);
-            Response.End();
+            Response.End();*
+
+            Response.Write(String.Format("<script>window.open('{0}','_blank');</script>", "WebForm1.aspx?fn=" + filePath));
+            Response.End();*/
+
+
         }
 
         protected void DeleteFile(object sender, EventArgs e)
@@ -360,6 +388,9 @@ namespace lewHRISlocal.HumanResources
             Response.Redirect(Request.Url.AbsoluteUri);
         }
 
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

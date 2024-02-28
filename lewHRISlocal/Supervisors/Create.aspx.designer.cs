@@ -24,6 +24,15 @@ namespace lewHRISlocal.Supervisors
         protected global::System.Web.UI.WebControls.Panel Panel1;
 
         /// <summary>
+        /// Label13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label13;
+
+        /// <summary>
         /// Table1 control.
         /// </summary>
         /// <remarks>
@@ -48,7 +57,16 @@ namespace lewHRISlocal.Supervisors
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUserEmail;
+        protected global::System.Web.UI.WebControls.Label txtUserEmail;
+
+        /// <summary>
+        /// txtCurrentTicketID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label txtCurrentTicketID;
 
         /// <summary>
         /// Label1 control.
@@ -87,40 +105,22 @@ namespace lewHRISlocal.Supervisors
         protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
-        /// EmpID control.
+        /// Button2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList EmpID;
+        protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
-        /// EmpID_ListSearchExtender control.
+        /// txtEmpID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ListSearchExtender EmpID_ListSearchExtender;
-
-        /// <summary>
-        /// SqlDataSource2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
-
-        /// <summary>
-        /// btnSubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.WebControls.Label txtEmpID;
 
         /// <summary>
         /// Label3 control.
@@ -258,6 +258,15 @@ namespace lewHRISlocal.Supervisors
         protected global::System.Web.UI.WebControls.TextBox txtLevel;
 
         /// <summary>
+        /// DropDownList1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+
+        /// <summary>
         /// Label10 control.
         /// </summary>
         /// <remarks>
@@ -364,5 +373,23 @@ namespace lewHRISlocal.Supervisors
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmitForm;
+
+        /// <summary>
+        /// generalist control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox generalist;
+
+        /// <summary>
+        /// maindepartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox maindepartment;
     }
 }

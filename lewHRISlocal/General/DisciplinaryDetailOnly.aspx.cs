@@ -24,7 +24,7 @@ namespace lewHRISlocal.General
     
     public partial class DisciplinaryDetailOnly : System.Web.UI.Page
     {
-        string newStatus;
+        
         string udpateSupComments;
 
 
@@ -61,7 +61,7 @@ namespace lewHRISlocal.General
 
             txtCounselingID.Text = id;
             //timedateAck.Text = "Acknowledging on " + System.DateTime.Now.ToString();
-            Context.ApplicationInstance.CompleteRequest();
+            // Removed 12.28.23 due to SQL injection going on //Context.ApplicationInstance.CompleteRequest();
 
 
             string myConnection;
@@ -81,7 +81,12 @@ namespace lewHRISlocal.General
                 txtDisciplinaryID.Text = dataReader.GetInt32(36).ToString();
                 txtDateEntered.Text = dataReader.GetDateTime(2).ToString();
                 txtDateIncident.Text = dataReader.GetDateTime(3).ToString();
-                txtPosition.Text = dataReader.GetString(42);
+                if (!dataReader.IsDBNull(42))
+                {
+                    txtPosition.Text = dataReader.GetString(42);
+                }
+                else txtPosition.Text = "";
+
                 txtEEStatus.Text = dataReader.GetString(25);
                 txtEmployeeName.Text = dataReader.GetString(4);
                 txtDepartment.Text = dataReader.GetString(5);
@@ -203,11 +208,30 @@ namespace lewHRISlocal.General
                     txtRTW.Text = dataReader.GetDateTime(39).ToString();
                 }
                 else txtRTW.Text = "";
-                if (!dataReader.IsDBNull(19))
+
+                if (!dataReader.IsDBNull(10))
                 {
-                    txtCounselingCount.Text = "" + dataReader.GetInt32(19);
+                    if (dataReader.GetString(10) == "Termination" && dataReader.GetString(25) == "Full-Time")
+                    {
+                        //txtCounselingCount.Text = ;
+                        txtCounselingCount.Text = "5";
+                    }
+                    else if (dataReader.GetString(10) == "Termination" && (dataReader.GetString(25) == "Part-Time" || dataReader.GetString(25) == "Introductory"))
+                    {
+                        //txtCounselingCount.Text = "" + dataReader.GetInt32(19);
+                        txtCounselingCount.Text = "3";
+                    }
+                    else
+                    {
+                        if (!dataReader.IsDBNull(19))
+                        {
+                            txtCounselingCount.Text = "" + dataReader.GetInt32(19);
+                        }
+                        else txtCounselingCount.Text = "";
+                    }
                 }
-                else txtCounselingCount.Text = "";
+
+                
 
             }
             //Response.Write(Output);
@@ -246,21 +270,21 @@ namespace lewHRISlocal.General
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            string myConnection;
-            SqlConnection cnn;
-            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
-            cnn = new SqlConnection(myConnection);
+            //string myConnection;
+            //SqlConnection cnn;
+            //myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
+            //cnn = new SqlConnection(myConnection);
 
-            SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = 'EE Acknowledged', [Sup_Status] = 'Sup Finalized', [HR_Status] = 'HR Sent'" +
-                ", [Supervisor_FollowUp] = '" + txtFollowUp.Text + "', [Supervisor_Finalized_Date] = '" + System.DateTime.Now.ToString() + "' WHERE [Counseling_ID] = "
-                + txtCounselingID.Text + "", cnn);
+            //SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = 'EE Acknowledged', [Sup_Status] = 'Sup Finalized', [HR_Status] = 'HR Sent'" +
+            //    ", [Supervisor_FollowUp] = '" + txtFollowUp.Text + "', [Supervisor_Finalized_Date] = '" + System.DateTime.Now.ToString() + "' WHERE [Counseling_ID] = "
+            //    + txtCounselingID.Text + "", cnn);
 
-            cnn.Open();
-            command.ExecuteNonQuery();
-            MessageBox.ShowMessage("Counseling Record forwarded to HR successfully.", this.Page);
-            cnn.Close();
-            //MessageBox.ShowMessage(newStatus, this.Page);
-            Response.Redirect("~/Supervisors/SupervisorDash", false);
+            //cnn.Open();
+            //command.ExecuteNonQuery();
+            //MessageBox.ShowMessage("Counseling Record forwarded to HR successfully.", this.Page);
+            //cnn.Close();
+            ////MessageBox.ShowMessage(newStatus, this.Page);
+            //Response.Redirect("~/Supervisors/SupervisorDash", false);
         }
 
         

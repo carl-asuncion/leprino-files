@@ -24,7 +24,7 @@ namespace lewHRISlocal.General
     
     public partial class DeleteDisciplinaryDetailOnly : System.Web.UI.Page
     {
-        string newStatus;
+        
         string udpateSupComments;
 
 
@@ -59,7 +59,7 @@ namespace lewHRISlocal.General
 
             txtCounselingID.Text = id;
             //timedateAck.Text = "Acknowledging on " + System.DateTime.Now.ToString();
-            Context.ApplicationInstance.CompleteRequest();
+            // Removed 12.28.23 due to SQL injection going on //Context.ApplicationInstance.CompleteRequest();
 
 
             string myConnection;
@@ -206,59 +206,80 @@ namespace lewHRISlocal.General
                     txtCounselingCount.Text = "" + dataReader.GetInt32(19);
                 }
                 else txtCounselingCount.Text = "";
-
+                if (!dataReader.IsDBNull(21))
+                {
+                    txtNewStatus.Text = dataReader.GetString(21);
+                }
+                else txtNewStatus.Text = "";
             }
             //Response.Write(Output);
             dataReader.Close();
             command.Dispose();
             cnn.Close();
 
-            //IIdentity id2 = HttpContext.Current.User.Identity;
-            //// set up domain context
-            //PrincipalContext ctx = new PrincipalContext(ContextType.Domain, id2.GetDomain());
+            PrincipalContext ctx = new PrincipalContext(ContextType.Domain, id2.GetDomain());
 
-            //// find a user
-            //UserPrincipal user = UserPrincipal.FindByIdentity(ctx, id2.GetLogin());
+            // find a user
+            UserPrincipal user = UserPrincipal.FindByIdentity(ctx, id2.GetLogin());
 
-            //// find the group in question
-            //GroupPrincipal group = GroupPrincipal.FindByIdentity(ctx, "LEW - HRIS");
+            // find the group in question
+            GroupPrincipal group = GroupPrincipal.FindByIdentity(ctx, "LEW - Human Resource Department");
 
-            //if (user != null)
-            //{
-            //    // check if user is member of that group
-            //    if (user.IsMemberOf(group))
-            //    {
-            //        Button2.Visible = true;
-            //        pagelabel.Text = "";
-            //        pagelabel.Visible= false;
-            //    }
-            //    else
-            //    {
-            //        pagelabel.Text = "No actions available for user.";
-            //        Button2.Visible = false;
-            //    }
+            if (user != null)
+            {
+                // check if user is member of that group
+                if (user.IsMemberOf(group))
+                {
+                    //Button2.Visible = true;
+                    //LabelAccess.Visible = false;
+                    Label44.Visible = false;
+                    ConfirmDelete.Visible = true;
+                    LinkButton2.Visible = true;
+                }
+                else
+                {
+                    //Button2.Visible = false;
+                    //LabelAccess.Text = "  No action available for user.";
+                    Label44.Visible = true;
+                    ConfirmDelete.Visible = false;
+                    LinkButton2.Visible = false;
+                }
+            }
 
-            //}
+
+            if (txtNewStatus.Text == "HR Dismissed Report" || txtNewStatus.Text == "Counseling Closed" || txtNewStatus.Text == "Disciplinary Action Closed")
+            {
+                LinkButton2.Visible = false;
+                Label44.Visible = true;
+                Label44.Text = "No actions available.";
+                ConfirmDelete.Visible = false;
+            }
+            else
+            {
+                LinkButton2.Visible = true;
+                Label44.Visible = false;
+                ConfirmDelete.Visible = true;
+            }
 
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            string myConnection;
-            SqlConnection cnn;
-            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
-            cnn = new SqlConnection(myConnection);
+            //string myConnection;
+            //SqlConnection cnn;
+            //myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
+            //cnn = new SqlConnection(myConnection);
 
-            SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = 'EE Acknowledged', [Sup_Status] = 'Sup Finalized', [HR_Status] = 'HR Sent'" +
-                ", [Supervisor_FollowUp] = '" + txtFollowUp.Text + "', [Supervisor_Finalized_Date] = '" + System.DateTime.Now.ToString() + "' WHERE [Counseling_ID] = "
-                + txtCounselingID.Text + "", cnn);
+            //SqlCommand command = new SqlCommand("UPDATE dbo.CounselingReport SET [EE_Status] = 'EE Acknowledged', [Sup_Status] = 'Sup Finalized', [HR_Status] = 'HR Sent'" +
+            //    ", [Supervisor_FollowUp] = '" + txtFollowUp.Text + "', [Supervisor_Finalized_Date] = '" + System.DateTime.Now.ToString() + "' WHERE [Counseling_ID] = "
+            //    + txtCounselingID.Text + "", cnn);
 
-            cnn.Open();
-            command.ExecuteNonQuery();
-            MessageBox.ShowMessage("Counseling Record forwarded to HR successfully.", this.Page);
-            cnn.Close();
-            //MessageBox.ShowMessage(newStatus, this.Page);
-            Response.Redirect("~/Supervisors/SupervisorDash", false);
+            //cnn.Open();
+            //command.ExecuteNonQuery();
+            //MessageBox.ShowMessage("Counseling Record forwarded to HR successfully.", this.Page);
+            //cnn.Close();
+            ////MessageBox.ShowMessage(newStatus, this.Page);
+            //Response.Redirect("~/Supervisors/SupervisorDash", false);
         }
 
         

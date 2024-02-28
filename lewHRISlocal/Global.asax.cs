@@ -18,5 +18,15 @@ namespace lewHRISlocal
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
+        //Added 1.10.2024 --- Unauthorized custom 401
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            if (Response.StatusCode == 401)
+            {
+                Response.ClearContent();
+                Response.WriteFile("~/UnauthorizedAccess.aspx");
+                Response.ContentType = "text/html";
+            }
+        }
     }
 }

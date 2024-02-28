@@ -11,7 +11,7 @@
             var panel = document.getElementById("<%=pnlContents.ClientID %>");
             var printWindow = window.open('', '', 'height=400,width=800');
             printWindow.document.write('<html><head><title>Print Completed Form</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>');
-            printWindow.document.write('</head><body style="font-family: Arial; font-size: 10px">');
+            printWindow.document.write('</head><body style="font-family: Arial; font-size: 10px; background-image: url("http://10.40.80.28:150/lewHRISlocal/SupportDocs/CONFIDENTIAL_WM.png");">');
             printWindow.document.write(panel.innerHTML);
             printWindow.document.write('</body></html>');
             printWindow.document.close();
@@ -65,6 +65,10 @@
         <asp:LinkButton ID="LinkButton2" class="myBtn"  runat="server"  onclientclick = "JavaScript:window.history.back(1); return false;" style="font-family: Arial; font-size: 11px">Close</asp:LinkButton>
         <%--<asp:LinkButton id="btnDownload" class="myBtn" runat="server" Text="Download"  OnClientClick = "return PrintPanel();"><i class="fa fa-download"></i></asp:LinkButton>--%>
         <asp:Panel ID="pnlContents" runat="server" style="font-family: Arial; font-size: 10px">
+            <div style=" background-image:url('/lewHRISlocal/SupportDocs/CONFIDENTIAL_WM.png'); background-position: center; background-size: 100%; background-repeat: repeat-y;">
+            
+            
+            
             <div style="text-align: center">
                 <h5>LEPRINO FOODS COMPANY | LEMOORE WEST FACILITY</h5>
                 <h2>DISCIPLINE ACTION FORM</h2>
@@ -127,30 +131,30 @@
                         </asp:TableRow>
                         <asp:TableRow>
                             <asp:TableCell HorizontalAlign="Center"><asp:Label ID="Label11" runat="server" Text="Date and Reasons" Height="30px" Font-Bold="True" Font-Size="10px"></asp:Label></asp:TableCell>
-                            <asp:TableCell><asp:TextBox ID="TextBox8" runat="server" Rows="2" style="border:none;height:20px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine"></asp:TextBox></asp:TableCell>
-                            <asp:TableCell><asp:TextBox ID="TextBox9" runat="server" Rows="2" style="border:none;height:20px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine"></asp:TextBox></asp:TableCell>
-                            <asp:TableCell><asp:TextBox ID="TextBox10" runat="server" Rows="2" style="border:none;height:20px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine"></asp:TextBox></asp:TableCell>
-                            <asp:TableCell ID="C13"><asp:TextBox ID="TextBox11" runat="server" Rows="2" style="border:none;height:20px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine"></asp:TextBox></asp:TableCell>
-                            <asp:TableCell ID="C23"><asp:TextBox ID="TextBox12" runat="server" Rows="2" style="border:none;height:20px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell><asp:TextBox ID="TextBox8" runat="server" Rows="2" style="border:none;height:20px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine" BackColor="Transparent"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell><asp:TextBox ID="TextBox9" runat="server" Rows="2" style="border:none;height:20px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine" BackColor="Transparent"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell><asp:TextBox ID="TextBox10" runat="server" Rows="2" style="border:none;height:20px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine" BackColor="Transparent"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell ID="C13"><asp:TextBox ID="TextBox11" runat="server" Rows="2" style="border:none;height:20px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine" BackColor="Transparent"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell ID="C23"><asp:TextBox ID="TextBox12" runat="server" Rows="2" style="border:none;height:20px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine" BackColor="Transparent"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                             <asp:TableCell HorizontalAlign="Center"><asp:Label ID="Label22" runat="server" Text="for Previous Discipline" Height="40px" Font-Bold="True" Font-Size="10px"></asp:Label></asp:TableCell>
-                            <asp:TableCell><asp:TextBox ID="TextBox13" runat="server" Rows="2" style="border:none;height:30px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine"></asp:TextBox></asp:TableCell>
-                            <asp:TableCell><asp:TextBox ID="TextBox14" runat="server" Rows="2" style="border:none;height:30px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine"></asp:TextBox></asp:TableCell>
-                            <asp:TableCell><asp:TextBox ID="TextBox15" runat="server" Rows="2" style="border:none;height:30px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine"></asp:TextBox></asp:TableCell>
-                            <asp:TableCell ID="C14"><asp:TextBox ID="TextBox16" runat="server" Rows="2" style="border:none;height:30px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine"></asp:TextBox></asp:TableCell>
-                            <asp:TableCell ID="C24"><asp:TextBox ID="TextBox17" runat="server" Rows="2" style="border:none;height:30px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell><asp:TextBox ID="TextBox13" runat="server" Rows="2" style="border:none;height:30px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine" BackColor="Transparent"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell><asp:TextBox ID="TextBox14" runat="server" Rows="2" style="border:none;height:30px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine" BackColor="Transparent"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell><asp:TextBox ID="TextBox15" runat="server" Rows="2" style="border:none;height:30px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine" BackColor="Transparent"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell ID="C14"><asp:TextBox ID="TextBox16" runat="server" Rows="2" style="border:none;height:30px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine" BackColor="Transparent"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell ID="C24"><asp:TextBox ID="TextBox17" runat="server" Rows="2" style="border:none;height:30px;" ReadOnly="True" Enabled="true" Font-Size="10px" TextMode="SingleLine" BackColor="Transparent"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                     </asp:Table>
                     <br />
                     <asp:Table ID="Table4" runat="server"  style="font-family: Arial; font-size: 12px">
                         <asp:TableRow>
                             <asp:TableCell><asp:Label ID="Label12" runat="server" Text="Suspension Dates: " Font-Size="10px" Font-Bold="True"></asp:Label></asp:TableCell>
-                            <asp:TableCell><asp:TextBox ID="TextBox18" runat="server" style="border:none;width:400px;" ReadOnly="True" Enabled="false" Font-Size="10px"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell><asp:TextBox ID="TextBox18" runat="server" style="border:none;width:400px;" ReadOnly="True" Enabled="false" Font-Size="10px" BackColor="Transparent"></asp:TextBox></asp:TableCell>
                             <asp:TableCell><asp:Label ID="Label18" runat="server" Text="ID Number: " Visible="false"></asp:Label></asp:TableCell>
-                            <asp:TableCell><asp:TextBox ID="TextBox19" runat="server" Visible="false" ReadOnly="True" Enabled="false"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell><asp:TextBox ID="TextBox19" runat="server" Visible="false" ReadOnly="True" Enabled="false" BackColor="Transparent"></asp:TextBox></asp:TableCell>
                             <asp:TableCell><asp:Label ID="Label19" runat="server" Text="RTW: " style="border:none;width:200px;" Font-Size="10px" Font-Bold="True"></asp:Label></asp:TableCell>
-                            <asp:TableCell><asp:TextBox ID="TextBox20" runat="server" style="border:none;width:200px;" ReadOnly="True" Enabled="false" Font-Size="10px"></asp:TextBox></asp:TableCell>
+                            <asp:TableCell><asp:TextBox ID="TextBox20" runat="server" style="border:none;width:200px;" ReadOnly="True" Enabled="false" Font-Size="10px" BackColor="Transparent"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                     </asp:Table>
                     <h5>*Group Leaders are required to keep their performance write-up step below three (3). In the event a Group Leader accumulates three (3) or more performance steps they will be removed from their Group Leader role. </h5>
@@ -160,15 +164,15 @@
             <div>
                 <h4>INCIDENT DESCRIPTION</h4>
                 <p>
-                    <asp:TextBox ID="txtSubject" runat="server" style="width:100%" ReadOnly="True" TextMode="SingleLine" Rows="1"  Font-Size="10px"></asp:TextBox>
-                    <asp:TextBox ID="txtSupComments" runat="server" style="height:100px;width:100%; font-family: Arial" ReadOnly="True" Rows="10" TextMode="MultiLine" Font-Size="10px"></asp:TextBox>
+                    <asp:TextBox ID="txtSubject" runat="server" style="width:100%" ReadOnly="True" TextMode="SingleLine" Rows="1"  Font-Size="10px" BackColor="Transparent"></asp:TextBox>
+                    <asp:TextBox ID="txtSupComments" runat="server" style="height:200px;width:100%; font-family: Arial" ReadOnly="True" Rows="10" TextMode="MultiLine" Font-Size="9.5px" BackColor="Transparent"></asp:TextBox>
                 </p>
             </div>
             <hr style="border-width: 1px; border-color: #000000" />
             <div>
                 <h4>EMPLOYEE COMMENTS</h4>
                 <p>
-                    <asp:TextBox ID="txtEmployeeComments" runat="server" style="height:50px;width:100%" ReadOnly="True" Rows="10" TextMode="MultiLine" Font-Size="10px"></asp:TextBox>
+                    <asp:TextBox ID="txtEmployeeComments" runat="server" style="height:50px;width:100%" ReadOnly="True" Rows="10" TextMode="MultiLine" Font-Size="10px" BackColor="Transparent"></asp:TextBox>
                 </p>
             </div>
             <hr style="border-width: 1px; border-color: #000000" />
@@ -252,6 +256,7 @@
                     </asp:TableRow>
                 </asp:Table>
             </footer>
+            </div>
         </asp:Panel>
     </form>
 </body>

@@ -66,15 +66,10 @@ namespace lewHRISlocal
             return user.GivenName + " " + user.Surname;
         }
 
-
-        string supUserName;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             IIdentity id2 = HttpContext.Current.User.Identity;
             string id = Request.QueryString["id"];
-
-            string supFullName;
 
             txtCounselingID.Text = id;
             if (!IsPostBack)
@@ -181,6 +176,7 @@ namespace lewHRISlocal
                 dataReader.Close();
                 command.Dispose();
                 cnn.Close();
+                cnn.Dispose();
 
             }
 

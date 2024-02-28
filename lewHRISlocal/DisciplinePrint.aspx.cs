@@ -68,14 +68,12 @@ namespace lewHRISlocal
         }
 
 
-        string supUserName;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             IIdentity id2 = HttpContext.Current.User.Identity;
             string id = Request.QueryString["id"];
 
-            string supFullName;
+            //string supFullName;
 
             txtCounselingID.Text = id;
 
@@ -144,6 +142,7 @@ namespace lewHRISlocal
 
                     txtOverallStatus.Text = dataReader.GetString(21);
                     if (txtOverallStatus.Text == "Initiated Disciplinary Action" || 
+                        txtOverallStatus.Text == "Disciplinary Action Pending Meeting" ||
                         txtOverallStatus.Text == "Disciplinary Action Sent to Department" ||
                         txtOverallStatus.Text == "Waiting for Sup Acknowledgement Disciplinary" ||
                         txtOverallStatus.Text == "Waiting for EE Acknowledgement Disciplinary")
@@ -157,7 +156,7 @@ namespace lewHRISlocal
                         txtSup2AckDate.Text = "N/A";
                         txtHRAckDate.Text = "N/A";
                     }
-                    else if (txtOverallStatus.Text == "Sent to HRM for Final Review")
+                    else if (txtOverallStatus.Text == "Ready to Close Disciplinary Action")
                     {
                         //Bottom Data
                         
@@ -169,7 +168,7 @@ namespace lewHRISlocal
                         else txtEEAck.Text = "";
                         if (!dataReader.IsDBNull(33))
                         {
-                            txtEEAckDate.Text = dataReader.GetString(33);
+                            txtEEAckDate.Text = dataReader.GetDateTime(33).ToString();
                         }
                         else txtEEAckDate.Text = "";
                     //Sup1 Acknowledgement
@@ -180,7 +179,7 @@ namespace lewHRISlocal
                         else txtSup1Ack.Text = "";
                         if (!dataReader.IsDBNull(35))
                         {
-                            txtSup1AckDate.Text = dataReader.GetString(35);
+                            txtSup1AckDate.Text = dataReader.GetDateTime(35).ToString();
                         }
                         else txtSup1AckDate.Text = "";
                     //Sup2 Acknowledgement
@@ -191,7 +190,7 @@ namespace lewHRISlocal
                         else txtSup2Ack.Text = "";
                         if (!dataReader.IsDBNull(44))
                         {
-                            txtSup2AckDate.Text = dataReader.GetString(44);
+                            txtSup2AckDate.Text = dataReader.GetDateTime(44).ToString();
                         }
                         else txtSup2AckDate.Text = "";
                     //HR Acknowledgement
@@ -261,6 +260,7 @@ namespace lewHRISlocal
                 dataReader.Close();
                 command.Dispose();
                 cnn.Close();
+                cnn.Dispose();
 
             }
 
@@ -311,7 +311,7 @@ namespace lewHRISlocal
             while (dataReader1.Read())
             { 
                 //LISTS UP THE DATES
-                if ((dataReader1["Corrective_Action"]).ToString() == "1")
+                if ((dataReader1["Counseling_Count"]).ToString() == "1")
                 {
                     if (!dataReader1.IsDBNull(0))
                     {
@@ -319,7 +319,7 @@ namespace lewHRISlocal
                     }
                     else TextBox8.Text = "";
                 }
-                if ((dataReader1["Corrective_Action"]).ToString() == "2")
+                if ((dataReader1["Counseling_Count"]).ToString() == "2")
                 {
                     if (!dataReader1.IsDBNull(0))
                     {
@@ -327,7 +327,7 @@ namespace lewHRISlocal
                     }
                     else TextBox9.Text = "";
                 }
-                if ((dataReader1["Corrective_Action"]).ToString() == "3")
+                if ((dataReader1["Counseling_Count"]).ToString() == "3")
                 {
                     if (!dataReader1.IsDBNull(0))
                     {
@@ -335,7 +335,7 @@ namespace lewHRISlocal
                     }
                     else TextBox10.Text = "";
                 }
-                if ((dataReader1["Corrective_Action"]).ToString() == "4")
+                if ((dataReader1["Counseling_Count"]).ToString() == "4")
                 {
                     if (!dataReader1.IsDBNull(0))
                     {
@@ -343,7 +343,7 @@ namespace lewHRISlocal
                     }
                     else TextBox11.Text = "";
                 }
-                if ((dataReader1["Corrective_Action"]).ToString() == "5")
+                if ((dataReader1["Counseling_Count"]).ToString() == "5")
                 {
                     if (!dataReader1.IsDBNull(0))
                     {
@@ -352,7 +352,7 @@ namespace lewHRISlocal
                     else TextBox12.Text = "";
                 }
                 //LISTS UP SUBJECTS
-                if ((dataReader1["Corrective_Action"]).ToString() == "1")
+                if ((dataReader1["Counseling_Count"]).ToString() == "1")
                 {
                     if (!dataReader1.IsDBNull(3))
                     {
@@ -360,7 +360,7 @@ namespace lewHRISlocal
                     }
                     else TextBox13.Text = "";
                 }
-                if ((dataReader1["Corrective_Action"]).ToString() == "2")
+                if ((dataReader1["Counseling_Count"]).ToString() == "2")
                 {
                     if (!dataReader1.IsDBNull(3))
                     {
@@ -368,7 +368,7 @@ namespace lewHRISlocal
                     }
                     else TextBox14.Text = "";
                 }
-                if ((dataReader1["Corrective_Action"]).ToString() == "3")
+                if ((dataReader1["Counseling_Count"]).ToString() == "3")
                 {
                     if (!dataReader1.IsDBNull(3))
                     {
@@ -376,7 +376,7 @@ namespace lewHRISlocal
                     }
                     else TextBox15.Text = "";
                 }
-                if ((dataReader1["Corrective_Action"]).ToString() == "4")
+                if ((dataReader1["Counseling_Count"]).ToString() == "4")
                 {
                     if (!dataReader1.IsDBNull(3))
                     {
@@ -384,7 +384,7 @@ namespace lewHRISlocal
                     }
                     else TextBox16.Text = "";
                 }
-                if ((dataReader1["Corrective_Action"]).ToString() == "5")
+                if ((dataReader1["Counseling_Count"]).ToString() == "5")
                 {
                     if (!dataReader1.IsDBNull(3))
                     {
@@ -397,6 +397,7 @@ namespace lewHRISlocal
             dataReader1.Close();
             command1.Dispose();
             cnn.Close();
+            cnn.Dispose();
         }
 
         protected void btnDownload_Click(object sender, EventArgs e)

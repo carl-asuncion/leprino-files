@@ -26,7 +26,7 @@ using System.Security.Principal;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using DocumentFormat.OpenXml.Spreadsheet;
-
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace lewHRISlocal.Supervisors
 {
@@ -50,6 +50,7 @@ namespace lewHRISlocal.Supervisors
     }
     public partial class SupervisorDash : System.Web.UI.Page
     {
+        
         //private PrincipalContext ctx;
         //public static string GetUserFullName(string domain, string userName)
         public static string GetUserFullName(string domain, string userName)
@@ -109,38 +110,79 @@ namespace lewHRISlocal.Supervisors
             //TextBox1.Text =  id.GetLogin();
             //TextBox1.Text =  GetUserFullName(id.GetDomain(), id.GetLogin());
             WelcomeLabel.Text =  "Welcome, " + GetUserFullName(id.GetDomain(), id.GetLogin()) + "!";
-            
+
+            searchName.Text = String.Format("{0}", Request.Form["myCountry"]);
 
 
-            string myConnection;
-            SqlConnection cnn;
-            myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
-            cnn = new SqlConnection(myConnection);
-            cnn.Open();
-            //Response.Write("Connection Made");
-
-            SqlCommand command = new SqlCommand("Select [Organizational_unit_Desc] from dbo.MasterList WHERE [EE] = " + GetUserDepartmentEmployee(id.GetLogin()) + "", cnn);
-            SqlDataReader dataReader;
-            String Output = " ";
-            dataReader = command.ExecuteReader();
-            while (dataReader.Read())
+            if (!IsPostBack)
             {
-                Department.Text = dataReader.GetString(0);
-                //txtEmpEmail.Text = dataReader.GetString(13);
-            }
-            Response.Write(Output);
-            dataReader.Close();
-            dataReader.Dispose();
+                var items = new List<string>();
+                PrincipalContext yourDomain = new PrincipalContext(ContextType.Domain);
 
+                // find your user
+                UserPrincipal user = UserPrincipal.FindByIdentity(yourDomain, id.GetLogin());
+
+                // if found - grab its groups
+                if (user != null)
+                {
+                    PrincipalSearchResult<Principal> groups = user.GetGroups();
+
+                    // iterate over all groups
+                    foreach (Principal p in groups)
+                    {
+                        // make sure to add only group principals
+                        if (p is GroupPrincipal)
+                        {
+                            if (p.ToString().Contains("LEW - HRIS "))
+                            {
+                                items.Add(p.ToString().Replace("LEW - HRIS ", ""));
+                            }
+
+                        }
+                    }
+                }
+                AllHRISGroup.Text = string.Join(", ", items).ToString();
+            }
+
+
+            try
+            {
+                string myConnection;
+                SqlConnection cnn;
+                myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
+                cnn = new SqlConnection(myConnection);
+                cnn.Open();
+                //Response.Write("Connection Made");
+
+                //SqlCommand command = new SqlCommand("Select [Organizational_unit_Desc] from dbo.MasterList WHERE [EE] = " + GetUserDepartmentEmployee(id.GetLogin()) + "", cnn);
+                SqlCommand command = new SqlCommand("Select vmd.[Department_Group] " +
+                    "from dbo.MasterList AS ml LEFT OUTER JOIN dbo.View_MainDepartment AS vmd " +
+                    " ON ml.[Organizational_unit_Desc] = vmd.[Department_Name] WHERE [EE] = " + GetUserDepartmentEmployee(id.GetLogin()) + "", cnn);
+                SqlDataReader dataReader;
+                String Output = " ";
+                dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    Department.Text = dataReader.GetString(0);
+                    //txtEmpEmail.Text = dataReader.GetString(13);
+                }
+                Response.Write(Output);
+                dataReader.Close();
+                dataReader.Dispose();
+            }
+            catch
+            {
+
+            }
 
             try
             {
                 if (!this.IsPostBack)
                 {
-                    this.BindGrid1();
-                    this.BindGrid2();
-                    this.BindGrid3();
-                    this.BindGrid4();
+                    this.BindGrid1("");
+                    this.BindGrid2("");
+                    this.BindGrid3("");
+                    this.BindGrid4("");
                 }
             }
             catch (Exception ex)
@@ -202,10 +244,10 @@ namespace lewHRISlocal.Supervisors
             //Response.Redirect("/Supervisors/Detail.aspx");
             //Context.ApplicationInstance.CompleteRequest();
         }
-        private void BindGrid1()
+        private void BindGrid1(string empName)
         {
             IIdentity id = HttpContext.Current.User.Identity;
-
+            
             string myConnection;
             SqlConnection cnn;
             myConnection = ConfigurationManager.ConnectionStrings["LEW_HRIS_LocalConnectionString"].ConnectionString;
@@ -215,9 +257,14 @@ namespace lewHRISlocal.Supervisors
 
             DataSet ds2 = new DataSet();
             SqlDataAdapter sda2 = new SqlDataAdapter();
+            //SqlCommand command2 = new SqlCommand("SELECT [Date_Incident], [EE_Name], [Counseling_Category], [Counseling_SubCategory], " +
+            //    "[Counseling_Subject], [Counseling_Level], [Overall Status], [Counseling_ID], [Department_Unit] FROM [View_1] WHERE ([Overall Status] = 'Waiting for Department/Employee Acknowledgement'" +
+            //    " OR [Overall Status] = 'Waiting for Sup Acknowledgement') AND [Department_Group] = '" + Department.Text + "' OR [Supervisor_Name] = '" + GetUserFullName(id.GetDomain(), id.GetLogin()) + "'", cnn);
             SqlCommand command2 = new SqlCommand("SELECT [Date_Incident], [EE_Name], [Counseling_Category], [Counseling_SubCategory], " +
-                "[Counseling_Subject], [Counseling_Level], [Overall Status], [Counseling_ID], [Department_Unit] FROM [View_1] WHERE ([Overall Status] = 'Waiting for Department/Employee Acknowledgement'" +
-                " OR [Overall Status] = 'Waiting for Sup Acknowledgement') AND [Department_Unit] = '" + Department.Text + "'" ,  cnn);
+                "[Counseling_Subject], [Counseling_Level], [Overall Status], [Counseling_ID], [Department_Unit] FROM [View_1] WHERE [Overall Status] IN ('Waiting for Department/Employee Acknowledgement'" +
+                ", 'Waiting for Sup Acknowledgement') AND " +
+                "([Department_Group] IN ('" + AllHRISGroup.Text.Replace(", ", "', '") + "') OR [Supervisor_Name] = '" + GetUserFullName(id.GetDomain(), id.GetLogin()) + "')" +
+                " AND [EE_Name] LIKE '%" + empName + "%'", cnn);
             sda2.SelectCommand = command2;
             using (DataTable dt2 = new DataTable())
             {
@@ -230,6 +277,8 @@ namespace lewHRISlocal.Supervisors
                 }
                 else
                 {
+                    mydatagrid.DataSource = dt2;
+                    mydatagrid.DataBind();
                     NeedAttn.Text = "No records available.";
                 }
             }
@@ -237,7 +286,7 @@ namespace lewHRISlocal.Supervisors
             cnn.Close();
         }
 
-        private void BindGrid2()
+        private void BindGrid2(string empName)
         {
             IIdentity id = HttpContext.Current.User.Identity;
 
@@ -252,7 +301,14 @@ namespace lewHRISlocal.Supervisors
             SqlCommand command = new SqlCommand("SELECT [Date_Incident], [EE_Name], [Counseling_Category], [Counseling_SubCategory], " +
                 "[Counseling_Subject], [Counseling_Level], [Overall Status], [Counseling_ID], [Department_Unit] FROM [View_1] WHERE " +
                 " [Overall Status] NOT IN ('Waiting for Sup Acknowledgement', 'Waiting for EE Acknowledgement', 'Waiting for Department/Employee Acknowledgement', 'Counseling Closed', 'Disciplinary Action Closed', 'HR Dismissed Report') " +
-                "AND [Department_Unit] = '" + Department.Text + "'", cnn);
+                "AND [Department_Group] IN ('" + AllHRISGroup.Text.Replace(", ", "', '") + "') AND [Date_Incident] > DATEADD(d, -180, GETDATE())" +
+                " AND [EE_Name] LIKE '%" + empName + "%' UNION " +
+                "SELECT [Date_Incident], [EE_Name], [Counseling_Category], [Counseling_SubCategory], " +
+                "[Counseling_Subject], [Counseling_Level], [Overall Status], [Counseling_ID], [Department_Unit] FROM [View_3] WHERE " +
+                " [Overall Status] NOT IN ('Disciplinary Action Sent to Department', 'Waiting for Department/Employee Acknowledgement', " +
+                "'Counseling Closed', 'Disciplinary Action Closed', 'HR Dismissed Report') " +
+                "AND [Department_Group] IN ('" + AllHRISGroup.Text.Replace(", ", "', '") + "') AND [Date_Incident] > DATEADD(d, -180, GETDATE())" +
+                " AND [EE_Name] LIKE '%" + empName + "%'", cnn);
             sda.SelectCommand = command;
             using (DataTable dt = new DataTable())
             {
@@ -265,6 +321,8 @@ namespace lewHRISlocal.Supervisors
                 }
                 else
                 {
+                    GridView1.DataSource = dt;
+                    GridView1.DataBind();
                     RecentSubs.Text = "No records available.";
                 }
             }
@@ -273,7 +331,7 @@ namespace lewHRISlocal.Supervisors
             cnn.Close();
         }
 
-        private void BindGrid3()
+        private void BindGrid3(string empName)
         {
             IIdentity id = HttpContext.Current.User.Identity;
 
@@ -288,7 +346,13 @@ namespace lewHRISlocal.Supervisors
             SqlCommand command = new SqlCommand("SELECT [Date_Incident], [EE_Name], [Counseling_Category], [Counseling_SubCategory], " +
                 "[Counseling_Subject], [Counseling_Level], [Overall Status], [Counseling_ID], [Department_Unit] FROM [View_1] WHERE " +
                 " [Overall Status] IN ('Counseling Closed', 'Disciplinary Action Closed', 'HR Dismissed Report') AND " +
-                " [Department_Unit] = '" + Department.Text + "'", cnn);
+                " [Department_Group] IN ('" + AllHRISGroup.Text.Replace(", ", "', '") + "') AND [Date_Incident] > DATEADD(d, -180, GETDATE())" +
+                " AND [EE_Name] LIKE '%" + empName + "%' UNION " +
+                "SELECT [Date_Incident], [EE_Name], [Counseling_Category], [Counseling_SubCategory], " +
+                "[Counseling_Subject], [Counseling_Level], [Overall Status], [Counseling_ID], [Department_Unit] FROM [View_3] WHERE " +
+                " [Overall Status] IN ('Counseling Closed', 'Disciplinary Action Closed', 'HR Dismissed Report') AND " +
+                " [Department_Group] IN ('" + AllHRISGroup.Text.Replace(", ", "', '") + "') AND [Date_Incident] > DATEADD(d, -180, GETDATE())" +
+                " AND [EE_Name] LIKE '%" + empName + "%'", cnn);
             sda.SelectCommand = command;
             using (DataTable dt = new DataTable())
             {
@@ -301,6 +365,8 @@ namespace lewHRISlocal.Supervisors
                 }
                 else
                 {
+                    GridView2.DataSource = dt;
+                    GridView2.DataBind();
                     HRReview.Text = "No records available.";
                 }
             }
@@ -309,7 +375,7 @@ namespace lewHRISlocal.Supervisors
             cnn.Close();
         }
 
-        private void BindGrid4()
+        private void BindGrid4(string empName)
         {
             IIdentity id = HttpContext.Current.User.Identity;
 
@@ -323,8 +389,9 @@ namespace lewHRISlocal.Supervisors
             SqlDataAdapter sda = new SqlDataAdapter();
             SqlCommand command = new SqlCommand("SELECT [Date_Incident], [Supervisor_Name], [Counseling_Category], [Counseling_SubCategory], " +
                 "[Counseling_Subject], [Counseling_Level], [Overall Status], [Counseling_ID], [EE_Name] FROM [View_3] " +
-                "WHERE ([Overall Status] = 'Disciplinary Action Sent to Department' OR [Overall Status] = 'Waiting for Sup Acknowledgement Disciplinary' OR [Overall Status] = 'Waiting for EE Acknowledgement Disciplinary') AND " +
-                " [Department_Unit] = '" + Department.Text + "'", cnn);
+                "WHERE ([Overall Status] IN  ('Disciplinary Action Sent to Department', 'Waiting for Sup Acknowledgement Disciplinary', 'Missing Employee Response' )) AND " +
+                " [Department_Group] IN ('" + AllHRISGroup.Text.Replace(", ", "', '") + "') " +
+                "AND [EE_Name] LIKE '%" + empName + "%'", cnn);
             sda.SelectCommand = command;
             using (DataTable dt = new DataTable())
             {
@@ -337,6 +404,8 @@ namespace lewHRISlocal.Supervisors
                 }
                 else
                 {
+                    GridView3.DataSource = dt;
+                    GridView3.DataBind();
                     txtReqAckDA.Text = "No records available.";
                 }
             }
@@ -383,24 +452,50 @@ namespace lewHRISlocal.Supervisors
         protected void mydatagrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             mydatagrid.PageIndex = e.NewPageIndex;
-            this.BindGrid1();
+            this.BindGrid1(searchName.Text);
         }
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView1.PageIndex = e.NewPageIndex;
-            this.BindGrid2();
+            this.BindGrid2(searchName.Text);
         }
 
         protected void GridView2_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView2.PageIndex = e.NewPageIndex;
-            this.BindGrid3();
+            this.BindGrid3(searchName.Text);
         }
 
         protected void GridView3_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView3.PageIndex = e.NewPageIndex;
-            this.BindGrid4();
+            this.BindGrid4(searchName.Text);
+        }
+
+        public void btnSearch_Click(object sender, EventArgs e)
+        {
+            IIdentity id2 = HttpContext.Current.User.Identity;
+
+            this.BindGrid1(searchName.Text);
+            this.BindGrid2(searchName.Text);
+            this.BindGrid3(searchName.Text);    
+            this.BindGrid4(searchName.Text);    
+
+
+        }
+
+        protected void Reset_Click(object sender, EventArgs e)
+        {
+            IIdentity id2 = HttpContext.Current.User.Identity;
+
+            //Page_Load(sender, e);
+
+            this.BindGrid1("");
+            this.BindGrid2("");
+            this.BindGrid3("");
+            this.BindGrid4("");
         }
     }
+
+    
 }

@@ -33,15 +33,6 @@ namespace lewHRISlocal.HumanResources
         protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
-        /// Table2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table Table2;
-
-        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -87,13 +78,13 @@ namespace lewHRISlocal.HumanResources
         protected global::System.Web.UI.WebControls.Label Label29;
 
         /// <summary>
-        /// TextBox7 control.
+        /// txtNewStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox7;
+        protected global::System.Web.UI.WebControls.TextBox txtNewStatus;
 
         /// <summary>
         /// Label12 control.
@@ -177,13 +168,13 @@ namespace lewHRISlocal.HumanResources
         protected global::System.Web.UI.WebControls.Label Label33;
 
         /// <summary>
-        /// txtSupervisor control.
+        /// TextBox5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSupervisor;
+        protected global::System.Web.UI.WebControls.TextBox TextBox5;
 
         /// <summary>
         /// Label4 control.
@@ -285,13 +276,13 @@ namespace lewHRISlocal.HumanResources
         protected global::System.Web.UI.WebControls.Label Label35;
 
         /// <summary>
-        /// TextBox9 control.
+        /// txtSupervisor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox9;
+        protected global::System.Web.UI.WebControls.TextBox txtSupervisor;
 
         /// <summary>
         /// Label36 control.
@@ -339,13 +330,13 @@ namespace lewHRISlocal.HumanResources
         protected global::System.Web.UI.WebControls.Label Label37;
 
         /// <summary>
-        /// TextBox11 control.
+        /// txtEmployeeSigned control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox11;
+        protected global::System.Web.UI.WebControls.TextBox txtEmployeeSigned;
 
         /// <summary>
         /// Label10 control.
@@ -357,13 +348,13 @@ namespace lewHRISlocal.HumanResources
         protected global::System.Web.UI.WebControls.Label Label10;
 
         /// <summary>
-        /// txtLevel control.
+        /// ddLevel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLevel;
+        protected global::System.Web.UI.WebControls.DropDownList ddLevel;
 
         /// <summary>
         /// Label11 control.
@@ -393,22 +384,22 @@ namespace lewHRISlocal.HumanResources
         protected global::System.Web.UI.WebControls.Label Label40;
 
         /// <summary>
-        /// TextBox14 control.
+        /// txtEmployeeUserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox14;
+        protected global::System.Web.UI.WebControls.TextBox txtEmployeeUserName;
 
         /// <summary>
-        /// Label34 control.
+        /// Label14 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label34;
+        protected global::System.Web.UI.WebControls.Label Label14;
 
         /// <summary>
         /// txtOverallStatus control.
@@ -474,6 +465,24 @@ namespace lewHRISlocal.HumanResources
         protected global::System.Web.UI.WebControls.TextBox txtEmployeeComments;
 
         /// <summary>
+        /// Label15 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label15;
+
+        /// <summary>
+        /// txtFollowUp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFollowUp;
+
+        /// <summary>
         /// Label27 control.
         /// </summary>
         /// <remarks>
@@ -492,15 +501,6 @@ namespace lewHRISlocal.HumanResources
         protected global::System.Web.UI.WebControls.ListBox ListBox1;
 
         /// <summary>
-        /// Button7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button7;
-
-        /// <summary>
         /// btnInitialize control.
         /// </summary>
         /// <remarks>
@@ -508,5 +508,23 @@ namespace lewHRISlocal.HumanResources
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnInitialize;
+
+        /// <summary>
+        /// txtAssignedGeneralist control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAssignedGeneralist;
+
+        /// <summary>
+        /// currentLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox currentLevel;
     }
 }

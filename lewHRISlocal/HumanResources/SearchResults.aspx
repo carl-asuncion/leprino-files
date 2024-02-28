@@ -1,11 +1,11 @@
 ﻿<%@ Page Title="Human Resources - Search Results" Language="C#" MasterPageFile="~/HumanResources/HRSite.Master" AutoEventWireup="true" CodeBehind="SearchResults.aspx.cs" Inherits="lewHRISlocal.HumanResources.SearchResults" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
+    <div style="background-color: rgba(255, 255, 255, 0.6); padding: 10px;  border-radius: 10px;">
 
     <br />
     <h2>Employee Record History</h2>
-    <asp:Button ID="btnBack" runat="server" Text="&laquo; Back" OnClientClick="JavaScript:window.history.back(1); return false;" CssClass="w3-btn w3-light-grey w3-ripple w3-round-large"/>
+    <asp:Button ID="btnBack" runat="server" Text="&laquo; Back" CssClass="w3-btn w3-light-grey w3-ripple w3-round-large" PostBackUrl="~/HumanResources/HRDash.aspx" />
     <br />
     <br />
         <asp:Table ID="Table2" runat="server" Width="100%">
@@ -44,14 +44,14 @@
                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select" Text="View" OnClick="LinkButton1_Click"></asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField DataField="Date_Incident" HeaderText="Incident Date" ReadOnly="True" SortExpression="Date_Entered"/>
-            <asp:BoundField DataField="EE_Name" HeaderText="Employee Name" ReadOnly="True" SortExpression="EE_Name" />
-            <asp:BoundField DataField="Counseling_ID" HeaderText="Counseling ID" SortExpression="Counseling_ID" Visible="False" />
-            <asp:BoundField DataField="Counseling_Category" HeaderText="Category" SortExpression="Counseling_Category" />
-            <asp:BoundField DataField="Counseling_SubCategory" HeaderText="Sub-Category" SortExpression="Counseling_SubCategory" />
-            <asp:BoundField DataField="Counseling_Subject" HeaderText="Subject" SortExpression="Counseling_Subject" />
-            <asp:BoundField DataField="Counseling_Count" HeaderText="Level" SortExpression="Counseling_Count" />
-            <asp:BoundField DataField="Overall Status" HeaderText="Status" SortExpression="Overall Status" />
+            <asp:BoundField DataField="Date_Incident" HeaderText="Incident Date" ReadOnly="True" SortExpression="Date_Entered" HeaderStyle-CssClass="myheader"/>
+            <asp:BoundField DataField="EE_Name" HeaderText="Employee Name" ReadOnly="True" SortExpression="EE_Name" HeaderStyle-CssClass="myheader" />
+            <asp:BoundField DataField="Counseling_ID" HeaderText="Counseling ID" SortExpression="Counseling_ID" Visible="False" HeaderStyle-CssClass="myheader" />
+            <asp:BoundField DataField="Counseling_Category" HeaderText="Category" SortExpression="Counseling_Category" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="myheader hidden-xs"/>
+            <asp:BoundField DataField="Counseling_SubCategory" HeaderText="Sub-Category" SortExpression="Counseling_SubCategory" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="myheader hidden-xs"/>
+            <asp:BoundField DataField="Counseling_Subject" HeaderText="Subject" SortExpression="Counseling_Subject"   HeaderStyle-CssClass="myheader"/>
+            <asp:BoundField DataField="Counseling_Count" HeaderText="Level" SortExpression="Counseling_Count"  ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="myheader hidden-xs"/>
+            <asp:BoundField DataField="Overall Status" HeaderText="Overall Status" SortExpression="Overall Status"  ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="myheader hidden-xs"/>
             <asp:TemplateField>
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton3" runat="server" CausesValidation="False" CommandName="Select" Text="Void" OnClick="LinkButton3_Click"></asp:LinkButton>
@@ -77,14 +77,14 @@
                     <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Select" Text="View" OnClick="LinkButton2_Click"></asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField DataField="Date_Incident" HeaderText="Incident Date" ReadOnly="True" SortExpression="Date_Entered"/>
-            <asp:BoundField DataField="EE_Name" HeaderText="Employee Name" ReadOnly="True" SortExpression="EE_Name" />
-            <asp:BoundField DataField="Counseling_ID" HeaderText="Counseling ID" SortExpression="Counseling_ID" Visible="False"/>
-            <asp:BoundField DataField="Counseling_Category" HeaderText="Category" SortExpression="Counseling_Category" />
-            <asp:BoundField DataField="Counseling_SubCategory" HeaderText="Sub-Category" SortExpression="Counseling_SubCategory" />
-            <asp:BoundField DataField="Counseling_Subject" HeaderText="Subject" SortExpression="Counseling_Subject" />
-            <asp:BoundField DataField="Counseling_Count" HeaderText="Level" SortExpression="Counseling_Count" />
-            <asp:BoundField DataField="Overall Status" HeaderText="Status" SortExpression="Overall Status" />
+            <asp:BoundField DataField="Date_Incident" HeaderText="Incident Date" ReadOnly="True" SortExpression="Date_Entered" HeaderStyle-CssClass="myheader"/>
+            <asp:BoundField DataField="EE_Name" HeaderText="Employee Name" ReadOnly="True" SortExpression="EE_Name" HeaderStyle-CssClass="myheader" />
+            <asp:BoundField DataField="Counseling_ID" HeaderText="Counseling ID" SortExpression="Counseling_ID" Visible="False" HeaderStyle-CssClass="myheader" />
+            <asp:BoundField DataField="Counseling_Category" HeaderText="Category" SortExpression="Counseling_Category" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="myheader hidden-xs"/>
+            <asp:BoundField DataField="Counseling_SubCategory" HeaderText="Sub-Category" SortExpression="Counseling_SubCategory" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="myheader hidden-xs"/>
+            <asp:BoundField DataField="Counseling_Subject" HeaderText="Subject" SortExpression="Counseling_Subject"   HeaderStyle-CssClass="myheader"/>
+            <asp:BoundField DataField="Counseling_Count" HeaderText="Level" SortExpression="Counseling_Count"  ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="myheader hidden-xs"/>
+            <asp:BoundField DataField="Overall Status" HeaderText="Overall Status" SortExpression="Overall Status"  ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="myheader hidden-xs"/>
             <asp:TemplateField>
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton4" runat="server" CausesValidation="False" CommandName="Select" Text="Void" OnClick="LinkButton4_Click"></asp:LinkButton>
@@ -102,13 +102,13 @@
     <hr style="border-width: 3px; border-color: #000000" />
     <h3>Uploaded Documents</h3>
     <asp:Label ID="Label1" runat="server" Text="Label" Font-Italic="True"></asp:Label>
-    <asp:GridView ID="GridView11" runat="server" AutoGenerateColumns="False" HeaderStyle-CssClass="myheader" RowStyle-CssClass="rows" CssClass="mydatagrid"  Font-Size="11px"  EmptyDataText = "No files uploaded">
+    <asp:GridView ID="GridView11" DataKeyNames="Text" runat="server" AutoGenerateColumns="False" HeaderStyle-CssClass="myheader" RowStyle-CssClass="rows" CssClass="mydatagrid"  Font-Size="11px"  EmptyDataText = "No files uploaded">
             <Columns>
                 <asp:BoundField DataField="Text" HeaderText="File Name" />
                 <%--<asp:BoundField DataField="Text" HeaderText="File Name" />--%>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:LinkButton ID="lnkDownload" Text = "Download" runat="server" OnClick = "DownloadFile"  CommandArgument = '<%# Eval("Value") %>'></asp:LinkButton>
+                        <asp:LinkButton ID="lnkDownload" Text = "View" runat="server" OnClick = "DownloadFile"  CommandArgument = '<%# Eval("Value") %>'></asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField>
@@ -127,4 +127,5 @@
     <br />
     <br />
     <br />
+    </div>
 </asp:Content>

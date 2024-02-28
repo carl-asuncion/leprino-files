@@ -108,10 +108,33 @@ div.container {
 <form style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background: white; border-color: transparent; padding: 20px;" runat="server">
   <h2 style="text-align: center">Unauthorized Session</h2>
   <div class="imgcontainer">
-    <img src="http://10.40.80.28:150/lewHRISlocal/Leprino_Foods_Black.png" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height: 25%; width: 25%;">
+    <img src="/Images/Leprino_Foods_Black.png" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height: 25%; width: 25%;">
   </div>
   <h5 style="text-align: center">Credentials were either not provided or incorrect credentials were entered.<br />For assistance, please contact your local HR or IT department.<br />Close and reopen browser to try again.</h5>
 </form>
 
 </body>
-</html>
+    <script type="text/javascript">
+        var t;
+        window.onload = resetTimer;
+        document.onmousemove = resetTimer;
+        document.onkeypress = resetTimer;
+
+        function logout() {
+
+            try {
+                document.execCommand("ClearAuthenticationCache");
+                window.location.href = window.location.protocol.replace(/\:/g, '') + "://" + window.location.host + "/_layouts/customlogin14.aspx";
+                alert('hello');
+            }
+            catch (e) { }
+
+
+        }
+
+        function resetTimer() {
+            window.clearTimeout(t);
+            t = window.setTimeout(logout, 900000);
+        }
+    </script>
+</html
